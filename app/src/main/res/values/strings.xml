@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">PasteIt</string>
+
+    <string name="editText_input_hint">Paste here</string>
+    <string name="imageView_device_description">Phone</string>
+
+    // Menu
+    <string name="sign_out_menu">Sign Out</string>
+
+    // Temporary
+    <string name="welcome_text">Please Sign in to get started</string>
+
+    // Constants
+    <string name="phone_device_type" translatable="false">phone</string>
+    <string name="chrome_device_type" translatable="false">chrome</string>
+
+</resources>
