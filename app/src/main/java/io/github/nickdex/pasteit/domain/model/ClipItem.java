@@ -1,10 +1,10 @@
-package io.github.nickdex.pasteit;
+package io.github.nickdex.pasteit.domain.model;
 
 /**
  * Model class to represent a single ClipItem
  */
 
-class ClipItem {
+public final class ClipItem {
     private String text;
     private String deviceName;
     private String deviceType;
@@ -13,7 +13,7 @@ class ClipItem {
     public ClipItem() {
     }
 
-    ClipItem(String text, String deviceName, String deviceType) {
+    public ClipItem(String text, String deviceName, String deviceType) {
         this.text = text;
         this.deviceName = deviceName;
         this.deviceType = deviceType;
@@ -27,7 +27,7 @@ class ClipItem {
         this.text = text;
     }
 
-    String getDeviceName() {
+    public String getDeviceName() {
         return deviceName;
     }
 
