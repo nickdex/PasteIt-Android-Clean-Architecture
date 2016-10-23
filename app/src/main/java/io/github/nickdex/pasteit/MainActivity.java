@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -159,6 +160,25 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 itemEditText.setText("");
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.sign_out_menu:
+                signOutUser();
+                return true;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void signOutUser() {
+        firebaseAuth.signOut();
+        Auth.GoogleSignInApi.signOut(googleApiClient);
+        username = ANONYMOUS;
+        startActivity(new Intent(this, SignInActivity.class));
     }
 
     @Override
