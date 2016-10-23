@@ -8,13 +8,13 @@ android {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
-        versionName "0.15.0"
+        versionName "0.16.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         debug {
-            minifyEnabled true
+            minifyEnabled false
             // Uses new built-in shrinker http://tools.android.com/tech-docs/new-build-system/built-in-shrinker
             useProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -74,7 +74,7 @@ dependencies {
 
     // Google
     compile "com.google.android.gms:play-services-auth:$rootProject.playServicesVersion"
-    compile "com.google.guava:guava:$rootProject.guavaVersion"
+//    compile "com.google.guava:guava:$rootProject.guavaVersion"
 
     // Firebase
     compile "com.google.firebase:firebase-database:$rootProject.firebaseVersion"
