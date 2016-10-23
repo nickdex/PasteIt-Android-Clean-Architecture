@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setStackFromEnd(true);
 
-        itemEditText = (EditText) findViewById(R.id.itemEditText);
+        itemEditText = (EditText) findViewById(R.id.inputText);
         sendButton = (ImageButton) findViewById(R.id.sendButton);
 
         // Firebase Database
