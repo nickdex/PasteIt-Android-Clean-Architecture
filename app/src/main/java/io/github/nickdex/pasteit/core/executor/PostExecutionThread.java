@@ -8,10 +8,10 @@ import rx.Scheduler;
  * implementation of this interface will change context and update the UI.
  *
  * @author Nikhil Warke
- * @version 1.0
+ * @version 1.1
  * @since 0.16
  */
 
-public interface PostExecuteThread {
+public interface PostExecutionThread {
     Scheduler getScheduler();
 }

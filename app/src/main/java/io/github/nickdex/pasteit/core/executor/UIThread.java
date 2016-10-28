@@ -8,11 +8,11 @@ import rx.android.schedulers.AndroidSchedulers;
  * which will execute actions on the Android UI thread
  *
  * @author Nikhil Warke
- * @version 1.0
+ * @version 1.1
  * @since 0.16
  */
 
-public class UIThread implements PostExecuteThread {
+public class UIThread implements PostExecutionThread {
 
     @Override
     public Scheduler getScheduler() {
