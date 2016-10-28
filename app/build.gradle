@@ -67,6 +67,8 @@ dependencies {
     compile "com.github.bumptech.glide:glide:$rootProject.glideVersion"
     compile "de.hdodenhof:circleimageview:$rootProject.circleImageViewVersion"
     compile "com.jakewharton.timber:timber:$rootProject.timberVersion"
+    compile "io.reactivex:rxandroid:$rootProject.rxAndroidVersion"
+    compile "io.reactivex:rxjava:$rootProject.rxJavaVersion"
     compile "com.jakewharton:butterknife:$rootProject.butterKniferVersion"
     apt "com.jakewharton:butterknife-compiler:$rootProject.butterKniferVersion"
 

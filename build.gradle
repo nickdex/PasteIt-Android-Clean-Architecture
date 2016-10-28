@@ -29,18 +29,20 @@ ext {
     minSdkVersion = 16
     targetSdkVersion = 24
     compileSdkVersion = 24
-    buildToolsVersion = '24.0.2'
+    buildToolsVersion = '25.0.0'
 
     // App dependencies
     supportLibraryVersion = '25.0.0'
     playServicesVersion = '9.8.0'
     circleImageViewVersion = '2.1.0'
     glideVersion = '3.7.0'
-    firebaseVersion = '9.4.0'
+    firebaseVersion = '9.8.0'
     firebaseUiVersion = '0.6.0'
     guavaVersion = '19.0'
     timberVersion = '4.3.1'
     butterKniferVersion = '8.4.0'
+    rxAndroidVersion = '1.2.1'
+    rxJavaVersion = '1.1.6'
 
     // Test dependencies
     junitVersion = '4.12'
