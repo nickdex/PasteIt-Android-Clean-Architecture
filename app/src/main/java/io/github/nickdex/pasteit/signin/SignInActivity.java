@@ -24,16 +24,17 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.github.nickdex.pasteit.MainActivity;
 import io.github.nickdex.pasteit.R;
 
-public class SignInActivity extends AppCompatActivity implements SignInView, View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
+public class SignInActivity extends AppCompatActivity implements SignInView, GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = SignInActivity.class.getSimpleName();
     private static final int RC_SIGN_IN = 2001;
 
     @BindView(R.id.signInButton)
-    private SignInButton signInButton;
+    SignInButton signInButton;
 
     private GoogleApiClient googleApiClient;
 
@@ -44,9 +45,6 @@ public class SignInActivity extends AppCompatActivity implements SignInView, Vie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-
-        // Set click listeners
-        signInButton.setOnClickListener(this);
 
         configureGoogleSignIn();
 
@@ -85,15 +83,7 @@ public class SignInActivity extends AppCompatActivity implements SignInView, Vie
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.signInButton:
-                signIn();
-                break;
-        }
-    }
-
-    @Override
+    @OnClick(R.id.signInButton)
     public void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
