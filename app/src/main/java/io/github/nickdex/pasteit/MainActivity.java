@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private FirebaseUser firebaseUser;
     private DatabaseReference firebaseDatabaseReference;
     private FirebaseRecyclerAdapter<ClipItem, ItemViewHolder> firebaseRecyclerAdapter;
+    private ImageButton pasteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         itemEditText = (EditText) findViewById(R.id.inputText);
         sendButton = (ImageButton) findViewById(R.id.sendButton);
+        pasteButton = (ImageButton) findViewById(R.id.pasteButton);
 
         // Firebase Database
         firebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
@@ -160,6 +162,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 firebaseDatabaseReference.child(CLIP_ITEMS_CHILD)
                         .push().setValue(item);
                 itemEditText.setText("");
+            }
+        });
+
+        final ClipBoardManager manager = new ClipBoardManager(this);
+        pasteButton.setEnabled(manager.canPaste());
+
+        pasteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String data = manager.getMessage();
+                itemEditText.setText(data);
             }
         });
     }

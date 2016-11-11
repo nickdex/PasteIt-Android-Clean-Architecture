@@ -41,7 +41,7 @@ public class ClipBoardManagerTest {
 
         ClipBoardManager manager = new ClipBoardManager(context);
 
-        String pasteData = manager.paste();
+        String pasteData = manager.getMessage();
         assertThat(pasteData, is(message.toString()));
     }
 }

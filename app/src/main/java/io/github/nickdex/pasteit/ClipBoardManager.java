@@ -25,7 +25,7 @@ public class ClipBoardManager {
         clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
     }
 
-    public String paste() {
+    public String getMessage() {
         ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
         CharSequence pasteData = item.getText();
 
@@ -40,7 +40,7 @@ public class ClipBoardManager {
     }
 
     public boolean canPaste() {
-        // If the clipboard doesn't contain data, disable the paste menu item.
+        // If the clipboard doesn't contain data, disable the getMessage menu item.
         // If it does contain data, decide if you can handle the data.
         return clipboard.hasPrimaryClip() && clipboard.getPrimaryClipDescription().hasMimeType(MIMETYPE_TEXT_PLAIN);
     }
