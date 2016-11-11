@@ -1,8 +1,7 @@
-package io.github.nickdex.pasteit;
+package io.github.nickdex.pasteit.signin;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringDef;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,28 +22,39 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class SignInActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import io.github.nickdex.pasteit.MainActivity;
+import io.github.nickdex.pasteit.R;
+
+public class SignInActivity extends AppCompatActivity implements SignInView, View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = SignInActivity.class.getSimpleName();
     private static final int RC_SIGN_IN = 2001;
 
+    @BindView(R.id.signInButton)
     private SignInButton signInButton;
 
     private GoogleApiClient googleApiClient;
 
     private FirebaseAuth firebaseAuth;
+    private SignInPresenter signInPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        // Assign Fields
-        signInButton = (SignInButton) findViewById(R.id.signInButton);
-
         // Set click listeners
         signInButton.setOnClickListener(this);
 
+        configureGoogleSignIn();
+
+        // Initialize FirebaseAuth
+        firebaseAuth = FirebaseAuth.getInstance();
+    }
+
+    private void configureGoogleSignIn() {
         // Configure Google Sign In
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -54,9 +64,24 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
                 .build();
+    }
 
-        // Initialize FirebaseAuth
-        firebaseAuth = FirebaseAuth.getInstance();
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.signInPresenter.resume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        this.signInPresenter.pause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        this.signInPresenter.destroy();
     }
 
     @Override
@@ -68,7 +93,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    private void signIn() {
+    @Override
+    public void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }

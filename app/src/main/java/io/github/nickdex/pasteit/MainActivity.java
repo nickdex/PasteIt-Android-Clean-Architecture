@@ -30,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.github.nickdex.pasteit.domain.model.ClipItem;
+import io.github.nickdex.pasteit.signin.SignInActivity;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
