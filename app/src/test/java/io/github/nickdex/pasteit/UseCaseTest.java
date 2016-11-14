@@ -1,21 +1,27 @@
 package io.github.nickdex.pasteit;
 
-import org.junit.Before;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.core.Is;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import io.github.nickdex.pasteit.core.executor.PostExecutionThread;
-import io.github.nickdex.pasteit.core.executor.ThreadExecutor;
-import io.github.nickdex.pasteit.interactor.UseCase;
+import javax.inject.Named;
+
+import io.github.nickdex.pasteit.domain.Messenger;
+import io.github.nickdex.pasteit.domain.repository.Repository;
+import io.github.nickdex.pasteit.interactor.GetUseCase;
 import rx.Observable;
-import rx.Subscriber;
+import rx.Scheduler;
+import rx.functions.Action0;
 import rx.observers.TestSubscriber;
 import rx.schedulers.TestScheduler;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -26,60 +32,74 @@ import static org.mockito.Mockito.when;
  */
 
 @RunWith(MockitoJUnitRunner.class)
-public class UseCaseTest {
+public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUseCase, UseCaseTest.TestRepository> {
 
-    private UseCaseTestClass useCase;
+    private TestSubscriber<Integer> testSubscriber;
 
-    @Mock
-    private ThreadExecutor mockThreadExecutor;
-    @Mock
-    private PostExecutionThread mockPostExecutionThread;
-
-    @Before
+    @Override
     public void setUp() {
-        this.useCase = new UseCaseTestClass(
-                mockThreadExecutor, mockPostExecutionThread);
+        super.setUp();
+        testSubscriber = new TestSubscriber<>();
+    }
+
+    @Override
+    protected TestUseCase createUseCase() {
+        return new TestUseCase(mockRepository, mockMessenger, mockThreadScheduler, new TestScheduler());
+    }
+
+    @Override
+    protected TestRepository createRepository() {
+        TestRepository testRepository = mock(TestRepository.class);
+        when(testRepository.getData()).thenReturn(Observable.just(Integer.MAX_VALUE));
+        return testRepository;
     }
 
     @Test
-    public void testBuildUseCaseObservableReturnCorrectResult() {
-        TestSubscriber<Integer> testSubscriber = new TestSubscriber<>();
-        TestScheduler testScheduler = new TestScheduler();
-
-        when(mockPostExecutionThread.getScheduler()).thenReturn(testScheduler);
-
-        useCase.execute(testSubscriber);
-
-        assertThat(testSubscriber.getOnNextEvents().size(), is(0));
+    @Override
+    public void testBuildUseCaseObservable() {
+        testBuildUseCaseObservable(null, new Action0() {
+            @Override
+            public void call() {
+                verify(mockRepository).getData();
+            }
+        });
     }
 
     @Test
-    public void testSubscriptionWhenExecutingUseCase() {
-        TestSubscriber<Integer> testSubscriber = new TestSubscriber<>();
-
-
+    @SuppressWarnings("unchecked")
+    public void buildUseCaseObservable_AsCorrectResult() {
         useCase.execute(testSubscriber);
+        Assert.assertThat(testSubscriber.getOnNextEvents().size(), CoreMatchers.is(0));
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void unsubscribe_AfterExecute_AsUnsubscribed() {
+        Assert.assertThat(useCase.isUnSubscribed(), Is.is(true));
+        useCase.execute(testSubscriber);
+        // TODO change useCase for longer action to uncomment this line
+        //assertThat(useCase.isUnSubscribed(), Is.is(false));
         useCase.unSubscribe();
-
-        assertThat(testSubscriber.isUnsubscribed(), is(true));
+        Assert.assertThat(useCase.isUnSubscribed(), Is.is(true));
     }
 
-    private static class UseCaseTestClass extends UseCase {
+    interface TestRepository extends Repository {
+        Observable<Integer> getData();
+    }
 
-        UseCaseTestClass(
-                ThreadExecutor threadExecutor,
-                PostExecutionThread postExecutionThread) {
-            super(threadExecutor, postExecutionThread);
+    class TestUseCase extends GetUseCase<Integer, TestRepository> {
+
+
+        public TestUseCase(TestRepository repository,
+                           Messenger messenger,
+                           @Named("Thread") Scheduler threadScheduler,
+                           @Named("PostExecution") Scheduler postExecutionScheduler) {
+            super(repository, messenger, threadScheduler, postExecutionScheduler);
         }
 
         @Override
-        protected Observable buildUseCaseObservable() {
-            return Observable.empty();
-        }
-
-        @Override
-        public void execute(Subscriber UseCaseSubscriber) {
-            super.execute(UseCaseSubscriber);
+        public Observable<Integer> buildObservable() {
+            return repository.getData();
         }
     }
 }

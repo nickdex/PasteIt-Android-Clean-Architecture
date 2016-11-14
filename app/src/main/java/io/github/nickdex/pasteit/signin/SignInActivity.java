@@ -28,7 +28,7 @@ import butterknife.OnClick;
 import io.github.nickdex.pasteit.MainActivity;
 import io.github.nickdex.pasteit.R;
 
-public class SignInActivity extends AppCompatActivity implements SignInView, GoogleApiClient.OnConnectionFailedListener {
+public class SignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = SignInActivity.class.getSimpleName();
     private static final int RC_SIGN_IN = 2001;
@@ -39,12 +39,12 @@ public class SignInActivity extends AppCompatActivity implements SignInView, Goo
     private GoogleApiClient googleApiClient;
 
     private FirebaseAuth firebaseAuth;
-    private SignInPresenter signInPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        ButterKnife.bind(this);
 
         configureGoogleSignIn();
 
@@ -64,25 +64,6 @@ public class SignInActivity extends AppCompatActivity implements SignInView, Goo
                 .build();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        this.signInPresenter.resume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        this.signInPresenter.pause();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        this.signInPresenter.destroy();
-    }
-
-    @Override
     @OnClick(R.id.signInButton)
     public void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);

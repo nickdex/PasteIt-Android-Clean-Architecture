@@ -1,12 +1,13 @@
 package io.github.nickdex.pasteit.interactor;
 
-import io.github.nickdex.pasteit.core.executor.PostExecutionThread;
-import io.github.nickdex.pasteit.core.executor.ThreadExecutor;
+import javax.inject.Named;
+
+import io.github.nickdex.pasteit.domain.repository.Repository;
+import io.github.nickdex.pasteit.domain.Messenger;
 import rx.Observable;
+import rx.Scheduler;
 import rx.Subscriber;
-import rx.Subscription;
-import rx.schedulers.Schedulers;
-import rx.subscriptions.Subscriptions;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Abstract class for a Use Case (Interactor in terms of Clean Architecture).
@@ -20,43 +21,46 @@ import rx.subscriptions.Subscriptions;
  * @version 1.0
  */
 
-public abstract class UseCase {
+public abstract class UseCase<REQUEST_DATA, RESPONSE_DATA, REPOSITORY extends Repository> {
 
-    private final ThreadExecutor threadExecutor;
-    private final PostExecutionThread postExecutionThread;
+    protected final REPOSITORY repository;
 
-    private Subscription subscription = Subscriptions.empty();
+    protected final Messenger messenger;
 
-    public UseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
-        this.threadExecutor = threadExecutor;
-        this.postExecutionThread = postExecutionThread;
+    private final Scheduler threadScheduler;
+
+    private final Scheduler postExecutionScheduler;
+
+    private CompositeSubscription subscription = new CompositeSubscription();
+
+    public UseCase(REPOSITORY repository,
+                   Messenger messenger,
+                   @Named("Thread") Scheduler threadScheduler,
+                   @Named("PostExecution") Scheduler postExecutionScheduler) {
+        this.repository = repository;
+        this.messenger = messenger;
+        this.threadScheduler = threadScheduler;
+        this.postExecutionScheduler = postExecutionScheduler;
     }
 
-    /**
-     * Executes the current use case.
-     *
-     * @param useCaseSubscriber The guy who will be listen to the observable build
-     *                          with {@link #buildUseCaseObservable()}.
-     */
-    @SuppressWarnings("unchecked")
-    public void execute(Subscriber useCaseSubscriber) {
-        this.subscription = this.buildUseCaseObservable()
-                .subscribeOn(Schedulers.from(threadExecutor))
-                .observeOn(postExecutionThread.getScheduler())
-                .subscribe(useCaseSubscriber);
+    public abstract Observable<RESPONSE_DATA> buildObservable(REQUEST_DATA requestData);
+
+    public void execute(REQUEST_DATA requestData, Subscriber<RESPONSE_DATA> useCaseSubscriber) {
+        this.subscription.add(this.buildObservable(requestData)
+                .subscribeOn(threadScheduler)
+                .observeOn(postExecutionScheduler)
+                .subscribe(useCaseSubscriber));
+        repository.register(this);
     }
 
-    /**
-     * Unsubscribes from the current {@link Subscription}.
-     */
+    public boolean isUnSubscribed() {
+        return !subscription.hasSubscriptions();
+    }
+
     public void unSubscribe() {
-        if (!subscription.isUnsubscribed()) {
-            subscription.unsubscribe();
+        if (!isUnSubscribed()) {
+            subscription.clear();
         }
+        repository.unregister(this);
     }
-
-    /**
-     * Builds an {@link rx.Observable} which will be used when executing the current {@link UseCase}.
-     */
-    protected abstract Observable buildUseCaseObservable();
 }

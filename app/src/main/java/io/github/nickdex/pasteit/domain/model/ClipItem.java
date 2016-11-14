@@ -2,6 +2,7 @@ package io.github.nickdex.pasteit.domain.model;
 
 /**
  * Model class to represent a single ClipItem
+ * @author Nikhil Warke
  */
 
 public final class ClipItem {
