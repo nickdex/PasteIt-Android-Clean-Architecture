@@ -1,4 +1,4 @@
-package io.github.nickdex.pasteit.core.data.repository;
+package io.github.nickdex.pasteit.core.repository;
 
 import java.util.HashMap;
 import java.util.Map;
