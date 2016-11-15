@@ -6,6 +6,7 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import io.github.nickdex.pasteit.AndroidApplication;
 import io.github.nickdex.pasteit.core.di.AppScope;
 import io.github.nickdex.pasteit.core.di.modules.ApplicationModule;
 import io.github.nickdex.pasteit.view.activity.BaseActivity;
@@ -17,7 +18,10 @@ import rx.Scheduler;
 @AppScope
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
+
     void inject(BaseActivity activity);
+
+    void inject(AndroidApplication app);
 
     //Exposed to sub-graphs.
     Context context();
