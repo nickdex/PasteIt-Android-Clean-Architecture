@@ -1,4 +1,4 @@
-package io.github.nickdex.pasteit.user;
+package io.github.nickdex.pasteit.interactor.user;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -11,7 +11,7 @@ import rx.Observable;
 import rx.Scheduler;
 
 /**
- * Creates a user
+ * Use case for creating a {@link User}.
  *
  * @author Nikhil Warke
  */

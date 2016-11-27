@@ -2,7 +2,7 @@ package io.github.nickdex.pasteit.manager;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
-import io.github.nickdex.pasteit.user.CreateUser;
+import io.github.nickdex.pasteit.interactor.user.CreateUser;
 import rx.Subscriber;
 
 /**

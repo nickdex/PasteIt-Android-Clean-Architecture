@@ -1,7 +1,5 @@
-package io.github.nickdex.pasteit;
+package io.github.nickdex.pasteit.domain;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.core.Is;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,16 +7,13 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.inject.Named;
 
-import io.github.nickdex.pasteit.domain.Messenger;
 import io.github.nickdex.pasteit.domain.repository.Repository;
 import io.github.nickdex.pasteit.interactor.GetUseCase;
 import rx.Observable;
 import rx.Scheduler;
-import rx.functions.Action0;
 import rx.observers.TestSubscriber;
 import rx.schedulers.TestScheduler;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -57,30 +52,25 @@ public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUseCase, UseCas
     @Test
     @Override
     public void testBuildUseCaseObservable() {
-        testBuildUseCaseObservable(null, new Action0() {
-            @Override
-            public void call() {
-                verify(mockRepository).getData();
-            }
-        });
+        testBuildUseCaseObservable(null, () -> verify(mockRepository).getData());
     }
 
     @Test
     @SuppressWarnings("unchecked")
     public void buildUseCaseObservable_AsCorrectResult() {
         useCase.execute(testSubscriber);
-        Assert.assertThat(testSubscriber.getOnNextEvents().size(), CoreMatchers.is(0));
+        Assert.assertThat(testSubscriber.getOnNextEvents().size(), is(0));
     }
 
     @Test
     @SuppressWarnings("unchecked")
-    public void unsubscribe_AfterExecute_AsUnsubscribed() {
-        Assert.assertThat(useCase.isUnSubscribed(), Is.is(true));
+    public void unSubscribe_AfterExecute_AsUnSubscribed() {
+        Assert.assertThat(useCase.isUnSubscribed(), is(true));
         useCase.execute(testSubscriber);
         // TODO change useCase for longer action to uncomment this line
         //assertThat(useCase.isUnSubscribed(), Is.is(false));
         useCase.unSubscribe();
-        Assert.assertThat(useCase.isUnSubscribed(), Is.is(true));
+        Assert.assertThat(useCase.isUnSubscribed(), is(true));
     }
 
     interface TestRepository extends Repository {

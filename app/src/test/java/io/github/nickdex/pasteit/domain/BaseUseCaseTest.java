@@ -1,4 +1,4 @@
-package io.github.nickdex.pasteit;
+package io.github.nickdex.pasteit.domain;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -14,6 +14,12 @@ import rx.functions.Action0;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
+/**
+ * Base Test class for {@link UseCase}
+ *
+ * @param <USE_CASE>   Type of Use case.
+ * @param <REPOSITORY> Type of Repository.
+ */
 @RunWith(MockitoJUnitRunner.class)
 public abstract class BaseUseCaseTest<USE_CASE extends UseCase, REPOSITORY extends Repository> {
 
