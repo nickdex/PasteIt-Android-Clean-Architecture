@@ -14,8 +14,4 @@ public interface MessageRepository extends Repository {
     Observable<List<ClipItem>> getMessages(String peerId, Messenger messenger);
 
     Observable<Void> postMessage(ClipItem message, Messenger messenger);
-
-    Observable<Void> editMessage(ClipItem editedMessage, Messenger messenger);
-
-    Observable<Void> deleteMessage(ClipItem message, Messenger messenger);
 }
