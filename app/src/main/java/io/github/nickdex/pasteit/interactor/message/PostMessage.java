@@ -11,11 +11,8 @@ import rx.Observable;
 import rx.Scheduler;
 
 /**
- * Sends a message to repository
- *
- * @author Nikhil Warke
+ * Sends a {@link ClipItem} message to repository.
  */
-
 public class PostMessage extends UseCase<ClipItem, Void, MessageRepository> {
 
     @Inject

@@ -3,11 +3,8 @@ package io.github.nickdex.pasteit.data.entity;
 import io.github.nickdex.pasteit.core.data.entity.Entity;
 
 /**
- * Model class to represent a single ClipItem in data layer.
- *
- * @author Nikhil Warke
+ * Model class to represent a clip item in data layer.
  */
-
 public final class ClipItemEntity implements Entity {
     private String text;
     private String deviceName;

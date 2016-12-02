@@ -21,11 +21,7 @@ import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link io.github.nickdex.pasteit.interactor.UseCase}
- *
- * @author Nikhil Warke
- * @version 1.0
  */
-
 @RunWith(MockitoJUnitRunner.class)
 public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUseCase, UseCaseTest.TestRepository> {
 

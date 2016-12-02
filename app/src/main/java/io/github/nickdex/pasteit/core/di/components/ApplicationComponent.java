@@ -14,6 +14,8 @@ import rx.Scheduler;
 
 /**
  * A component whose lifetime is the life of the application.
+ *
+ * @
  */
 @AppScope
 @Component(modules = ApplicationModule.class)

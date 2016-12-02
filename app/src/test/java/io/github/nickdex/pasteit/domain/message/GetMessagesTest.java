@@ -8,12 +8,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
- * Test for {@link GetMessages}
- *
- * @author Nikhil Warke
- *         Created on 2/12/16.
+ * Unit test for {@link GetMessages}.
  */
-
 public class GetMessagesTest extends BaseUseCaseTest<GetMessages, MessageRepository> {
 
     private final String CHROME = "CHROME";

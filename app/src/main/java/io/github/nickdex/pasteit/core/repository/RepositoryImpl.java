@@ -13,9 +13,9 @@ import io.github.nickdex.pasteit.core.data.mapper.BaseMapper;
 /**
  * Base class for all repositories implementations.
  *
- * @param <ENTITY_STORE>
- * @param <CACHE>
- * @param <ENTITY_DTO_MAPPER>
+ * @param <ENTITY_STORE> Data storage which collects and maintains the data
+ * @param <CACHE> Cache which maintains cache of data
+ * @param <ENTITY_DTO_MAPPER> Mapper that converts data from a class to another
  */
 public abstract class RepositoryImpl
         <ENTITY_STORE extends EntityStore,

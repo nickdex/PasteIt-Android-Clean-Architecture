@@ -14,11 +14,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.when;
 
 /**
- * Testing {@link ClipBoardManager}
- *
- * @author Nikhil Warke
+ * Test class for {@link ClipBoardManager}
  */
-
 @RunWith(MockitoJUnitRunner.class)
 public class ClipBoardManagerTest {
 

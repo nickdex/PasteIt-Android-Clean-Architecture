@@ -16,11 +16,7 @@ import rx.subscriptions.CompositeSubscription;
  * <p>
  * By convention each UseCase implementation will return the result using a {@link rx.Subscriber}
  * that will execute its job in a background thread and will post the result in the UI thread.
- *
- * @author Nikhil Warke
- * @version 1.0
  */
-
 public abstract class UseCase<REQUEST_DATA, RESPONSE_DATA, REPOSITORY extends Repository> {
 
     protected final REPOSITORY repository;

@@ -1,10 +1,8 @@
 package io.github.nickdex.pasteit.domain.model;
 
 /**
- * Model class to represent a single ClipItem
- * @author Nikhil Warke
+ * Model class to represent a clip item.
  */
-
 public final class ClipItem {
     private String text;
     private String deviceName;

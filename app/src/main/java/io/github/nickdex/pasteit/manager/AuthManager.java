@@ -6,11 +6,8 @@ import io.github.nickdex.pasteit.interactor.user.CreateUser;
 import rx.Subscriber;
 
 /**
- * Sign In with google
- *
- * @author Nikhil Warke
+ * Interface that manages user account.
  */
-
 public interface AuthManager {
 
     void signInGoogle(GoogleSignInAccount acct, Subscriber<String> signInSubscriber, CreateUser createUser);

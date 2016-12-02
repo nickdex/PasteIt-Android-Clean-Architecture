@@ -12,11 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- * Decorated {@link java.util.concurrent.ThreadPoolExecutor}
- *
- * @author Nikhil Warke
- * @version 1.0
- * @since 0.16
+ * Decorated {@link java.util.concurrent.ThreadPoolExecutor}.
  */
 @Singleton
 public class JobExecutor implements ThreadExecutor {
@@ -34,7 +30,7 @@ public class JobExecutor implements ThreadExecutor {
                 MAX_POOL_SIZE,
                 KEEP_ALIVE_TIME,
                 TimeUnit.SECONDS,
-                new LinkedBlockingQueue<Runnable>(),
+                new LinkedBlockingQueue<>(),
                 new JobThreadFactory());
     }
 

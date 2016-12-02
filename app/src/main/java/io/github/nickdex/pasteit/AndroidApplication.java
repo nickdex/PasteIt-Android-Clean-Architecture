@@ -13,11 +13,9 @@ import io.github.nickdex.pasteit.core.di.modules.ApplicationModule;
 import io.github.nickdex.pasteit.manager.AuthManager;
 
 /**
- * Android Main Application
- *
- * @author Nikhil Warke
+ * Class initializes {@link Application} level objects for the app.
+ * It also sets up dependency injection framework to create generated files.
  */
-
 public class AndroidApplication extends Application {
 
     @Inject

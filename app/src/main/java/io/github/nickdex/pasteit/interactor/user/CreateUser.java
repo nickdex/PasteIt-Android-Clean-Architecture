@@ -12,10 +12,7 @@ import rx.Scheduler;
 
 /**
  * Use case for creating a {@link User}.
- *
- * @author Nikhil Warke
  */
-
 public class CreateUser extends UseCase<User, String, UserRepository> {
 
     @Inject
@@ -27,7 +24,7 @@ public class CreateUser extends UseCase<User, String, UserRepository> {
     }
 
     @Override
-    public Observable<String> buildObservable(User userDto) {
-        return repository.createUserIfNotExists(userDto, messenger);
+    public Observable<String> buildObservable(User user) {
+        return repository.createUserIfNotExists(user, messenger);
     }
 }

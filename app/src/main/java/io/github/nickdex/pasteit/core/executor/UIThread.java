@@ -8,11 +8,7 @@ import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * MainThread (UI Thread) implementation based on a {@link rx.Scheduler}
- * which will execute actions on the Android UI thread
- *
- * @author Nikhil Warke
- * @version 1.1
- * @since 0.16
+ * which will execute actions on the Android UI thread.
  */
 @Singleton
 public class UIThread implements PostExecutionThread {

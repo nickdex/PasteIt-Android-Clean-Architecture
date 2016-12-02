@@ -13,12 +13,8 @@ import rx.Observable;
 import rx.Scheduler;
 
 /**
- * Fetches message for requested devices from repository
- *
- * @author Nikhil Warke
- *         Created on 2/12/16.
+ * Fetches all {@link ClipItem} messages for the requested device from repository.
  */
-
 public class GetMessages extends UseCase<String, List<ClipItem>, MessageRepository> {
 
     @Inject

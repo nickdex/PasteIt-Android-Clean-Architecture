@@ -2,9 +2,6 @@ package io.github.nickdex.pasteit.presenter;
 
 /**
  * Interface representing a Presenter in a model view presenter (MVP) pattern.
- *
- * @author Nikhil Warke
- * @version 1.0
  */
 public interface Presenter {
     /**

@@ -9,12 +9,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
- * Test for {@link PostMessage}
- *
- * @author Nikhil Warke
- *         Created on 2/12/16.
+ * Unit test for {@link PostMessage}.
  */
-
 public class PostMessageTest extends BaseUseCaseTest<PostMessage, MessageRepository> {
 
     private final ClipItem clipItem = new ClipItem();

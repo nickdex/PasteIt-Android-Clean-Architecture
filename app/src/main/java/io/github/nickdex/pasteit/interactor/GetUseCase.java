@@ -9,11 +9,8 @@ import rx.Scheduler;
 import rx.Subscriber;
 
 /**
- * Special use case for just retrieving data
- *
- * @author Nikhil Warke
+ * Special use case for retrieving the data without requiring a request object.
  */
-
 public abstract class GetUseCase<RESPONSE_DATA, REPOSITORY extends Repository> extends
         UseCase<Void, RESPONSE_DATA, REPOSITORY> {
 

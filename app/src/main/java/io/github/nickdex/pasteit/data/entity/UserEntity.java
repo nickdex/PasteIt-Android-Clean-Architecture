@@ -3,9 +3,7 @@ package io.github.nickdex.pasteit.data.entity;
 import io.github.nickdex.pasteit.core.data.entity.Entity;
 
 /**
- * Model Class for Users in data layer.
- *
- * @author Nikhil Warke
+ * Model class to represent a user in data layer.
  */
 public class UserEntity implements Entity {
 

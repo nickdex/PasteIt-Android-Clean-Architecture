@@ -10,12 +10,8 @@ import timber.log.Timber;
 import static android.content.ClipDescription.MIMETYPE_TEXT_PLAIN;
 
 /**
- * Listens to clipboard for new items and sends it to service
- *
- * @author Nikhil Warke
- * @since 23/10/16.
+ * Listens to clipboard for new items and sends it to service.
  */
-
 public class ClipBoardManager {
 
     private Context mContext;

@@ -2,8 +2,6 @@ package io.github.nickdex.pasteit.core.data.manager;
 
 /**
  * Manager for checking state of network and managing listeners.
- *
- * @author Nikhil Warke
  */
 public interface NetworkManager {
 

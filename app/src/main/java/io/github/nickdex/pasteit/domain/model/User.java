@@ -1,9 +1,7 @@
 package io.github.nickdex.pasteit.domain.model;
 
 /**
- * Model Class for Users
- *
- * @author Nikhil Warke
+ * Model Class to represent a user.
  */
 public class User {
 
