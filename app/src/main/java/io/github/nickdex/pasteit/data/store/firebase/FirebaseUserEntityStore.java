@@ -10,11 +10,11 @@ import io.github.nickdex.pasteit.data.store.UserEntityStore;
 import rx.Observable;
 
 /**
- * Handles {@link UserEntityStore} operation on Firebase.
+ * Performs {@link UserEntityStore} operations on Firebase.
  */
 public class FirebaseUserEntityStore extends FirebaseEntityStore implements UserEntityStore {
 
-    private static final String CHILD_USERS = "users";
+    private static final String ROOT_USERS = "users";
 
     @Inject
     public FirebaseUserEntityStore() {
@@ -22,13 +22,13 @@ public class FirebaseUserEntityStore extends FirebaseEntityStore implements User
 
     @Override
     public Observable<String> createUserIfNotExists(UserEntity userEntity) {
-        DatabaseReference reference = database.child(CHILD_USERS).child(userEntity.getId());
+        DatabaseReference reference = database.child(ROOT_USERS).child(userEntity.getId());
         return createIfNotExists(reference, userEntity, userEntity.getId());
     }
 
     @Override
     public Observable<UserEntity> getUser(String userId) {
-        Query query = database.child(CHILD_USERS).orderByKey();
+        Query query = database.child(ROOT_USERS).child(ROOT_USERS);
         return get(query, UserEntity.class, true);
     }
 }

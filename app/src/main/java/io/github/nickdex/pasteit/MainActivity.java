@@ -107,9 +107,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 viewHolder.deviceTextView.setText(model.getDeviceName());
                 //TODO Add drawable resource for chrome
                 /*
-                if(getString(R.string.phone_device_type).equals(model.getDeviceType()))
+                if(getString(R.string.phone_device_type).equals(model.getSenderEmail()))
 
-                    switch (model.getDeviceType()) {
+                    switch (model.getSenderEmail()) {
                         case PHONE:
                             viewHolder.deviceImageView.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.smartphone));
                             break;
@@ -159,10 +159,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ClipItem item = new ClipItem(itemEditText.getText().toString(), android.os.Build.MODEL, PHONE /* Change to tablet as required */);
-                firebaseDatabaseReference.child(CLIP_ITEMS_CHILD)
-                        .push().setValue(item);
-                itemEditText.setText("");
+//                ClipItem item = new ClipItem(itemEditText.getText().toString(), android.os.Build.MODEL, PHONE /* Change to tablet as required */);
+//                firebaseDatabaseReference.child(CLIP_ITEMS_CHILD)
+//                        .push().setValue(item);
+//                itemEditText.setText("");
             }
         });
 

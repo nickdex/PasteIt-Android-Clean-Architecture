@@ -3,21 +3,23 @@ package io.github.nickdex.pasteit.data.entity;
 import io.github.nickdex.pasteit.core.data.entity.Entity;
 
 /**
- * Model class to represent a clip item in data layer.
+ * Model class to represent a message item in data layer.
  */
-public final class ClipItemEntity implements Entity {
+public final class MessageEntity implements Entity {
     private String text;
     private String deviceName;
-    private String deviceType;
+    private String senderEmail;
     private String id;
+    private long timestamp;
 
-    public ClipItemEntity() {
+    public MessageEntity() {
     }
 
-    public ClipItemEntity(String text, String deviceName, String deviceType) {
+    public MessageEntity(String text, String deviceName, String senderEmail, long timestamp) {
         this.text = text;
         this.deviceName = deviceName;
-        this.deviceType = deviceType;
+        this.senderEmail = senderEmail;
+        this.timestamp = timestamp;
     }
 
     public String getText() {
@@ -36,12 +38,12 @@ public final class ClipItemEntity implements Entity {
         this.deviceName = deviceName;
     }
 
-    public String getDeviceType() {
-        return deviceType;
+    public String getSenderEmail() {
+        return senderEmail;
     }
 
-    public void setDeviceType(String deviceType) {
-        this.deviceType = deviceType;
+    public void setSenderEmail(String senderEmail) {
+        this.senderEmail = senderEmail;
     }
 
     @Override
@@ -52,6 +54,14 @@ public final class ClipItemEntity implements Entity {
     @Override
     public void setId(String id) {
         this.id = id;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }
 

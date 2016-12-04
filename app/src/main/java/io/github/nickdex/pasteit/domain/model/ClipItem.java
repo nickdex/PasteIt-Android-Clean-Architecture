@@ -7,15 +7,9 @@ public final class ClipItem {
     private String text;
     private String deviceName;
     private String deviceType;
-
+    private long timestamp;
 
     public ClipItem() {
-    }
-
-    public ClipItem(String text, String deviceName, String deviceType) {
-        this.text = text;
-        this.deviceName = deviceName;
-        this.deviceType = deviceType;
     }
 
     public String getText() {
@@ -40,6 +34,14 @@ public final class ClipItem {
 
     public void setDeviceType(String deviceType) {
         this.deviceType = deviceType;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }
 

@@ -1,4 +1,4 @@
-package io.github.nickdex.pasteit.manager;
+package io.github.nickdex.pasteit.data.manager;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 

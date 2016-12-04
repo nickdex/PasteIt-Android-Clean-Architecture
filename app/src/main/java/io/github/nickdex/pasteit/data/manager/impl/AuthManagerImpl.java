@@ -1,4 +1,4 @@
-package io.github.nickdex.pasteit.manager.impl;
+package io.github.nickdex.pasteit.data.manager.impl;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,9 +13,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import io.github.nickdex.pasteit.data.manager.AuthException;
+import io.github.nickdex.pasteit.data.manager.AuthManager;
 import io.github.nickdex.pasteit.domain.model.User;
-import io.github.nickdex.pasteit.manager.AuthException;
-import io.github.nickdex.pasteit.manager.AuthManager;
 import io.github.nickdex.pasteit.interactor.user.CreateUser;
 import rx.Subscriber;
 
@@ -42,7 +42,7 @@ public class AuthManagerImpl implements AuthManager {
                         if (task.isSuccessful()) {
                             saveUser(task.getResult().getUser(), signInSubscriber, createUser);
                         } else {
-                            signInSubscriber.onError(new FirebaseException(task.getException().getMessage()));
+                            signInSubscriber.onError(new AuthException());
                         }
                     }
                 });

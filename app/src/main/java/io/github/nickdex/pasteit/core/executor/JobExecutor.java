@@ -2,7 +2,6 @@ package io.github.nickdex.pasteit.core.executor;
 
 import android.support.annotation.NonNull;
 
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -12,7 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- * Decorated {@link java.util.concurrent.ThreadPoolExecutor}.
+ * Decorated {@link ThreadPoolExecutor}.
  */
 @Singleton
 public class JobExecutor implements ThreadExecutor {
@@ -33,7 +32,6 @@ public class JobExecutor implements ThreadExecutor {
                 new LinkedBlockingQueue<>(),
                 new JobThreadFactory());
     }
-
 
     @Override
     public void execute(@NonNull Runnable command) {

@@ -71,7 +71,7 @@ public abstract class FirebaseEntityStore {
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
+                    subscriber.onError(new FirebaseException(databaseError.getMessage()));
                 }
             });
         });
