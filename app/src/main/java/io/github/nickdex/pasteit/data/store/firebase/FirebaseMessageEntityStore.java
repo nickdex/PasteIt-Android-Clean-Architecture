@@ -1,7 +1,5 @@
 package io.github.nickdex.pasteit.data.store.firebase;
 
-import android.content.Context;
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 
@@ -10,12 +8,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.github.nickdex.pasteit.data.entity.MessageEntity;
-import io.github.nickdex.pasteit.data.store.MessageEntityStore;
 import io.github.nickdex.pasteit.data.manager.AuthManager;
+import io.github.nickdex.pasteit.data.store.MessageEntityStore;
 import rx.Observable;
 
 /**
- * Performs {@link MessageEntity} operations on Firebase.
+ * A class that contains implementations of {@link MessageEntityStore} methods.
  */
 public class FirebaseMessageEntityStore extends FirebaseEntityStore implements MessageEntityStore {
 
@@ -24,7 +22,7 @@ public class FirebaseMessageEntityStore extends FirebaseEntityStore implements M
     private AuthManager authManager;
 
     @Inject
-    public FirebaseMessageEntityStore(AuthManager authManager, Context context) {
+    public FirebaseMessageEntityStore(AuthManager authManager) {
         this.authManager = authManager;
     }
 

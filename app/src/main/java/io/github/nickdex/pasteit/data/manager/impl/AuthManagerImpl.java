@@ -2,12 +2,10 @@ package io.github.nickdex.pasteit.data.manager.impl;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -51,11 +49,8 @@ public class AuthManagerImpl implements AuthManager {
     private void saveUser(FirebaseUser fUser, Subscriber<String> subscriber, CreateUser createUser) {
         User user = new User();
         user.setId(fUser.getUid());
-        if (!TextUtils.isEmpty(fUser.getDisplayName())) {
-            String[] name = fUser.getDisplayName().split(" ");
-            user.setFirstName(name[0]);
-            user.setLastName(name[1]);
-        }
+        user.setEmail(fUser.getEmail());
+        user.setName(fUser.getDisplayName());
 
         createUser.execute(user, subscriber);
     }

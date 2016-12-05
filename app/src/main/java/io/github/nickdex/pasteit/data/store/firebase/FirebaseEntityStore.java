@@ -49,12 +49,12 @@ public abstract class FirebaseEntityStore {
     }
 
     /**
-     * Runs for the first time.
+     * Creates a node at specified path in {@link DatabaseReference} if it doesn't exist already.
      *
-     * @param databaseReference Reference to Firebase Reference that needs to be used.
-     * @param value             Object of Models in data layer that have to be saved.
-     * @param successResponse   UId of value when operation completes successfully.
-     * @return {@link Observable} that will notify when value has been published.
+     * @param databaseReference Reference to Firebase {@link DatabaseReference} where node is to be created.
+     * @param value             Object of a Model class that needs to be saved.
+     * @param successResponse   Response Object that should be pushed to subscriber when operation completes successfully.
+     * @return {@link Observable} that emits successResponse.
      */
     protected <T extends Entity, R> Observable<R> createIfNotExists(DatabaseReference databaseReference, T value, R successResponse) {
         return Observable.create(subscriber -> {
@@ -94,8 +94,8 @@ public abstract class FirebaseEntityStore {
                 query.addListenerForSingleValueEvent(eventListener);
             } else {
                 query.addValueEventListener(eventListener);
+                subscriber.add(Subscriptions.create(() -> query.removeEventListener(eventListener)));
             }
-            subscriber.add(Subscriptions.create(() -> query.removeEventListener(eventListener)));
         });
     }
 
