@@ -2,7 +2,6 @@ package io.github.nickdex.pasteit;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,9 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -25,13 +25,12 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.api.model.StringList;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.github.nickdex.pasteit.domain.model.ClipItem;
+import io.github.nickdex.pasteit.signin.SignInActivity;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -56,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private FirebaseUser firebaseUser;
     private DatabaseReference firebaseDatabaseReference;
     private FirebaseRecyclerAdapter<ClipItem, ItemViewHolder> firebaseRecyclerAdapter;
+    private ImageButton pasteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +89,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setStackFromEnd(true);
 
-        itemEditText = (EditText) findViewById(R.id.itemEditText);
+        itemEditText = (EditText) findViewById(R.id.inputText);
         sendButton = (ImageButton) findViewById(R.id.sendButton);
+        pasteButton = (ImageButton) findViewById(R.id.pasteButton);
 
         // Firebase Database
         firebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
@@ -106,9 +107,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 viewHolder.deviceTextView.setText(model.getDeviceName());
                 //TODO Add drawable resource for chrome
                 /*
-                if(getString(R.string.phone_device_type).equals(model.getDeviceType()))
+                if(getString(R.string.phone_device_type).equals(model.getSenderEmail()))
 
-                    switch (model.getDeviceType()) {
+                    switch (model.getSenderEmail()) {
                         case PHONE:
                             viewHolder.deviceImageView.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.smartphone));
                             break;
@@ -158,12 +159,50 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ClipItem item = new ClipItem(itemEditText.getText().toString(), android.os.Build.MODEL, PHONE /* Change to tablet as required */);
-                firebaseDatabaseReference.child(CLIP_ITEMS_CHILD)
-                        .push().setValue(item);
-                itemEditText.setText("");
+//                ClipItem item = new ClipItem(itemEditText.getText().toString(), android.os.Build.MODEL, PHONE /* Change to tablet as required */);
+//                firebaseDatabaseReference.child(CLIP_ITEMS_CHILD)
+//                        .push().setValue(item);
+//                itemEditText.setText("");
             }
         });
+
+        final ClipBoardManager manager = new ClipBoardManager(this);
+        pasteButton.setEnabled(manager.canPaste());
+
+        pasteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String data = manager.getMessage();
+                itemEditText.setText(data);
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.sign_out_menu:
+                signOutUser();
+                return true;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void signOutUser() {
+        firebaseAuth.signOut();
+        Auth.GoogleSignInApi.signOut(googleApiClient);
+        username = ANONYMOUS;
+        startActivity(new Intent(this, SignInActivity.class));
     }
 
     @Override

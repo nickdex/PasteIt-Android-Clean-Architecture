@@ -1,22 +1,15 @@
-package io.github.nickdex.pasteit;
+package io.github.nickdex.pasteit.domain.model;
 
 /**
- * Model class to represent a single ClipItem
+ * Model class to represent a clip item.
  */
-
-class ClipItem {
+public final class ClipItem {
     private String text;
     private String deviceName;
     private String deviceType;
-
+    private long timestamp;
 
     public ClipItem() {
-    }
-
-    ClipItem(String text, String deviceName, String deviceType) {
-        this.text = text;
-        this.deviceName = deviceName;
-        this.deviceType = deviceType;
     }
 
     public String getText() {
@@ -27,7 +20,7 @@ class ClipItem {
         this.text = text;
     }
 
-    String getDeviceName() {
+    public String getDeviceName() {
         return deviceName;
     }
 
@@ -41,6 +34,14 @@ class ClipItem {
 
     public void setDeviceType(String deviceType) {
         this.deviceType = deviceType;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }
 
