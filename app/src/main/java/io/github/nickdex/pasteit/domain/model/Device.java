@@ -21,5 +21,5 @@ package io.github.nickdex.pasteit.domain.model;
  */
 
 public enum Device {
-    CHROME, PHONE
+    CHROME, PHONE, GHOST
 }

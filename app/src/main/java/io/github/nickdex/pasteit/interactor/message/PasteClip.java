@@ -29,19 +29,19 @@ import rx.Scheduler;
 /**
  * Sends a {@link ClipItem} message to repository.
  */
-public class PostMessage extends UseCase<ClipItem, Void, MessageRepository> {
+public class PasteClip extends UseCase<ClipItem, Void, MessageRepository> {
 
     @Inject
-    public PostMessage(MessageRepository repository,
-                       Messenger messenger,
-                       @Named("Thread") Scheduler threadScheduler,
-                       @Named("PostExecution") Scheduler postExecutionScheduler) {
+    public PasteClip(MessageRepository repository,
+                     Messenger messenger,
+                     @Named("Thread") Scheduler threadScheduler,
+                     @Named("PostExecution") Scheduler postExecutionScheduler) {
         super(repository, messenger, threadScheduler, postExecutionScheduler);
     }
 
     @Override
     public Observable<Void> buildObservable(ClipItem clipItem) {
-        return repository.postMessage(clipItem, messenger);
+        return repository.pasteClip(clipItem, messenger);
     }
 
 }

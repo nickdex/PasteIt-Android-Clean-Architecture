@@ -14,19 +14,31 @@
  * limitations under the License.
  */
 
-package io.github.nickdex.pasteit.domain.repository;
+package io.github.nickdex.pasteit.data.repository;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import io.github.nickdex.pasteit.core.data.manager.NetworkManager;
+import io.github.nickdex.pasteit.core.repository.RepositoryImpl;
+import io.github.nickdex.pasteit.data.mapper.MessageEntityClipItemMapper;
+import io.github.nickdex.pasteit.data.store.MessageEntityStore;
 import io.github.nickdex.pasteit.domain.Messenger;
 import io.github.nickdex.pasteit.domain.model.ClipItem;
 import io.github.nickdex.pasteit.domain.model.Device;
+import io.github.nickdex.pasteit.domain.repository.MessageRepository;
 import rx.Observable;
 
 /**
- * Interface that represents a Repository for clips.
+ * A Class that performs operation on Clips.
  */
-public interface MessageRepository extends Repository {
+public class MessageRepositoryImpl extends RepositoryImpl<MessageEntityStore, MessageEntityClipItemMapper> implements MessageRepository {
+
+    @Inject
+    public MessageRepositoryImpl(NetworkManager networkManager, MessageEntityStore cloudStore, MessageEntityClipItemMapper entityDtoMapper) {
+        super(networkManager, cloudStore, entityDtoMapper);
+    }
 
     /**
      * Returns a observable which will emit a list of all clips for a given userId.
@@ -35,7 +47,11 @@ public interface MessageRepository extends Repository {
      * @param messenger Doesn't show any messages yet.
      * @return The observable which will emit a list of all clips for a given userId.
      */
-    Observable<List<ClipItem>> getClips(Device device, Messenger messenger);
+    @Override
+    public Observable<List<ClipItem>> getClips(Device device, Messenger messenger) {
+        return cloudStore.getMessages(entityDmMapper.getStringForDevice(device))
+                .map(messageEntities -> entityDmMapper.mapToSecond(messageEntities));
+    }
 
     /**
      * Pastes a clip.
@@ -44,5 +60,8 @@ public interface MessageRepository extends Repository {
      * @param messenger Doesn't show any messages yet.
      * @return The observable which doesn't emit anything.
      */
-    Observable<Void> pasteClip(ClipItem message, Messenger messenger);
+    @Override
+    public Observable<Void> pasteClip(ClipItem message, Messenger messenger) {
+        return cloudStore.postMessage(entityDmMapper.mapToFirst(message));
+    }
 }

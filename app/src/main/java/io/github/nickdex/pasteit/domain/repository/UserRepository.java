@@ -21,12 +21,26 @@ import io.github.nickdex.pasteit.domain.model.User;
 import rx.Observable;
 
 /**
- * Interface that represents a Repository for getting {@link User} related data.
+ * Interface that represents a Repository of Users.
  */
 public interface UserRepository extends Repository {
 
+    /**
+     * A method to create the user, if it doesn't already exists in repository.
+     *
+     * @param user      The user that has to be created.
+     * @param messenger Shows messages to the user.
+     * @return The unique userId of the user created or found in repository.
+     */
     Observable<String> createUserIfNotExists(User user, Messenger messenger);
 
+    /**
+     * Fetches a User by its userId.
+     *
+     * @param userId    The unique id of the User to be returned.
+     * @param messenger Doesn't show any messages yet.
+     * @return The User that was found.
+     */
     Observable<User> getUser(final String userId, Messenger messenger);
 
 }

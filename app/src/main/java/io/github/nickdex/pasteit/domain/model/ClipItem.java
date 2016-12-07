@@ -20,10 +20,14 @@ package io.github.nickdex.pasteit.domain.model;
  * Model class to represent a clip item.
  */
 public final class ClipItem {
+
+    public static final String INVALID = "NOT A PHONE";
+
     private String text;
-    private String deviceName;
-    private String deviceType;
+    private Device deviceType;
+    private String senderEmail;
     private long timestamp;
+    private String deviceName;
 
     public ClipItem() {
     }
@@ -37,18 +41,22 @@ public final class ClipItem {
     }
 
     public String getDeviceName() {
-        return deviceName;
+        if (deviceType != Device.PHONE) return INVALID;
+        else
+            return deviceName;
     }
 
     public void setDeviceName(String deviceName) {
-        this.deviceName = deviceName;
+        if (this.deviceType != Device.PHONE) this.deviceName = INVALID;
+        else
+            this.deviceName = deviceName;
     }
 
-    public String getDeviceType() {
-        return deviceType;
+    public Device getDeviceType() {
+        return this.deviceType;
     }
 
-    public void setDeviceType(String deviceType) {
+    public void setDeviceType(Device deviceType) {
         this.deviceType = deviceType;
     }
 
@@ -58,6 +66,14 @@ public final class ClipItem {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getSenderEmail() {
+        return senderEmail;
+    }
+
+    public void setSenderEmail(String senderEmail) {
+        this.senderEmail = senderEmail;
     }
 }
 

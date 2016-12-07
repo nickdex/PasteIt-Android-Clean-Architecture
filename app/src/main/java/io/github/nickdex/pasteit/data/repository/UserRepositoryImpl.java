@@ -23,7 +23,7 @@ import javax.inject.Inject;
 import io.github.nickdex.pasteit.core.data.manager.NetworkManager;
 import io.github.nickdex.pasteit.core.repository.RepositoryImpl;
 import io.github.nickdex.pasteit.data.entity.UserEntity;
-import io.github.nickdex.pasteit.data.mapper.UserEntityClipItemMapper;
+import io.github.nickdex.pasteit.data.mapper.UserEntityUserDmMapper;
 import io.github.nickdex.pasteit.data.store.UserEntityStore;
 import io.github.nickdex.pasteit.domain.Messenger;
 import io.github.nickdex.pasteit.domain.listener.OnUserChangedListener;
@@ -33,17 +33,25 @@ import io.github.nickdex.pasteit.interactor.UseCase;
 import rx.Observable;
 
 /**
- * Class that contains implementations of methods in {@link UserRepository}.
+ * A Class that performs operations on User.
  */
-public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserEntityClipItemMapper> implements UserRepository, OnUserChangedListener {
+public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserEntityUserDmMapper> implements UserRepository, OnUserChangedListener {
 
     @Inject
     public UserRepositoryImpl(NetworkManager networkManager,
                               UserEntityStore cloudStore,
-                              UserEntityClipItemMapper userEntityClipItemMapper) {
-        super(networkManager, cloudStore, userEntityClipItemMapper);
+                              UserEntityUserDmMapper userEntityUserDmMapper) {
+        super(networkManager, cloudStore, userEntityUserDmMapper);
     }
 
+
+    /**
+     * A method to create the user, if it doesn't already exists in repository.
+     *
+     * @param user      The user that has to be created.
+     * @param messenger Shows 'No Internet Connection' message to the user.
+     * @return The unique userId of the user created or found in repository.
+     */
     @Override
     public Observable<String> createUserIfNotExists(User user, Messenger messenger) {
         if (networkManager.isNetworkAvailable()) {
@@ -53,12 +61,19 @@ public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserEnti
         }
     }
 
+    /**
+     * Fetches a User by its userId.
+     *
+     * @param userId    The unique id of the User to be returned.
+     * @param messenger Doesn't show any messages yet.
+     * @return The User that was found.
+     */
     @Override
     public Observable<User> getUser(String userId, Messenger messenger) {
-        Observable<UserEntity> entityObservable;
-        entityObservable = cloudStore.getUser(userId);
+        Observable<UserEntity> entityObservable = cloudStore.getUser(userId);
         return entityObservable.map(userEntity -> entityDmMapper.mapToSecond(userEntity));
     }
+
 
     @Override
     public void onDataChanged(String userId) {

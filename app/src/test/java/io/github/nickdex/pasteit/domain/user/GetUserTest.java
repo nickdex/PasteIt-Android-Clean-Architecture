@@ -28,7 +28,6 @@ import static org.mockito.Mockito.verify;
 /**
  * Testing case of getting the user.
  */
-
 public class GetUserTest extends BaseUseCaseTest<GetUser, UserRepository> {
     private static final String FAKE_USER_ID = "123";
 
@@ -45,8 +44,6 @@ public class GetUserTest extends BaseUseCaseTest<GetUser, UserRepository> {
     @Test
     @Override
     public void testBuildUseCaseObservable() {
-        testBuildUseCaseObservable(FAKE_USER_ID, () -> {
-            verify(mockRepository).getUser(FAKE_USER_ID, mockMessenger);
-        });
+        testBuildUseCaseObservable(FAKE_USER_ID, () -> verify(mockRepository).getUser(FAKE_USER_ID, mockMessenger));
     }
 }

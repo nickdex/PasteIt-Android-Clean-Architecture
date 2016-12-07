@@ -21,39 +21,39 @@ import io.github.nickdex.pasteit.data.entity.UserEntity;
 import io.github.nickdex.pasteit.domain.model.User;
 
 /**
- * Mapper to convert {@link UserEntity} into {@link User} and vice versa.
+ * Mapper to convert a user entity from data layer into a user in domain layer and vice versa.
  */
-public class UserEntityClipItemMapper extends BaseMapper<UserEntity, User> {
+public class UserEntityUserDmMapper extends BaseMapper<UserEntity, User> {
 
     /**
-     * Method which converts {@link User} to {@link UserEntity}.
+     * Method which converts user to a user entity.
+     * Default value is used when corresponding data is not found in user.
      *
-     * @param o2 {@link User} that contains some data.
-     * @return {@link UserEntity} mapped with data from o2.
-     * Default value is used when corresponding data is not found in o2.
+     * @param user A user that contains some data.
+     * @return The user entity mapped with data from user.
      */
     @Override
-    public UserEntity mapToFirst(User o2) {
+    public UserEntity mapToFirst(User user) {
         UserEntity userEntity = new UserEntity();
-        userEntity.setId(o2.getId());
-        userEntity.setName(o2.getName());
-        userEntity.setEmail(o2.getEmail());
+        userEntity.setId(user.getId());
+        userEntity.setName(user.getName());
+        userEntity.setEmail(user.getEmail());
         return userEntity;
     }
 
     /**
-     * Method which converts {@link UserEntity} to {@link User}.
+     * Method which converts userEntity to a user.
+     * Default value is used when corresponding data is not found in userEntity.
      *
-     * @param o1 {@link UserEntity} that contains some data.
-     * @return {@link User} mapped with data from o1.
-     * Default value is used when corresponding data is not found in o1.
+     * @param userEntity A user entity that contains some data.
+     * @return The user mapped with data from userEntity.
      */
     @Override
-    public User mapToSecond(UserEntity o1) {
+    public User mapToSecond(UserEntity userEntity) {
         User user = new User();
-        user.setId(o1.getId());
-        user.setName(o1.getName());
-        user.setEmail(o1.getEmail());
+        user.setId(userEntity.getId());
+        user.setName(userEntity.getName());
+        user.setEmail(userEntity.getEmail());
         return user;
     }
 }

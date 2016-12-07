@@ -22,20 +22,17 @@ import io.github.nickdex.pasteit.core.data.entity.Entity;
  * Model class to represent a message item in data layer.
  */
 public final class MessageEntity implements Entity {
+
+    public static final String CHROME = "CHROME";
+    public static final String PHONE = "PHONE";
+
     private String text;
-    private String deviceName;
+    private String deviceType;
     private String senderEmail;
     private String id;
     private long timestamp;
 
     public MessageEntity() {
-    }
-
-    public MessageEntity(String text, String deviceName, String senderEmail, long timestamp) {
-        this.text = text;
-        this.deviceName = deviceName;
-        this.senderEmail = senderEmail;
-        this.timestamp = timestamp;
     }
 
     public String getText() {
@@ -46,12 +43,12 @@ public final class MessageEntity implements Entity {
         this.text = text;
     }
 
-    public String getDeviceName() {
-        return deviceName;
+    public String getDeviceType() {
+        return deviceType;
     }
 
-    public void setDeviceName(String deviceName) {
-        this.deviceName = deviceName;
+    public void setDeviceType(String deviceType) {
+        this.deviceType = deviceType;
     }
 
     public String getSenderEmail() {

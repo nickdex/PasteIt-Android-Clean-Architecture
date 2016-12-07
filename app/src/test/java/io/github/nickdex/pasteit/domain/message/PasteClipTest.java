@@ -16,24 +16,26 @@
 
 package io.github.nickdex.pasteit.domain.message;
 
+import org.junit.Test;
+
 import io.github.nickdex.pasteit.domain.BaseUseCaseTest;
 import io.github.nickdex.pasteit.domain.model.ClipItem;
 import io.github.nickdex.pasteit.domain.repository.MessageRepository;
-import io.github.nickdex.pasteit.interactor.message.PostMessage;
+import io.github.nickdex.pasteit.interactor.message.PasteClip;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
- * Unit test for {@link PostMessage}.
+ * Unit test for {@link PasteClip}.
  */
-public class PostMessageTest extends BaseUseCaseTest<PostMessage, MessageRepository> {
+public class PasteClipTest extends BaseUseCaseTest<PasteClip, MessageRepository> {
 
     private final ClipItem clipItem = new ClipItem();
 
     @Override
-    protected PostMessage createUseCase() {
-        return new PostMessage(mockRepository, mockMessenger, mockThreadScheduler, mockPostExecutionScheduler);
+    protected PasteClip createUseCase() {
+        return new PasteClip(mockRepository, mockMessenger, mockThreadScheduler, mockPostExecutionScheduler);
     }
 
     @Override
@@ -41,8 +43,9 @@ public class PostMessageTest extends BaseUseCaseTest<PostMessage, MessageReposit
         return mock(MessageRepository.class);
     }
 
+    @Test
     @Override
     public void testBuildUseCaseObservable() {
-        testBuildUseCaseObservable(clipItem, () -> verify(mockRepository.postMessage(clipItem, mockMessenger)));
+        testBuildUseCaseObservable(clipItem, () -> verify(mockRepository).pasteClip(clipItem, mockMessenger));
     }
 }

@@ -29,7 +29,7 @@ import io.github.nickdex.pasteit.data.store.MessageEntityStore;
 import rx.Observable;
 
 /**
- * A class that contains implementations of {@link MessageEntityStore} methods.
+ * A class that performs operations on messages in firebase.
  */
 public class FirebaseMessageEntityStore extends FirebaseEntityStore implements MessageEntityStore {
 
@@ -42,19 +42,31 @@ public class FirebaseMessageEntityStore extends FirebaseEntityStore implements M
         this.authManager = authManager;
     }
 
+    /**
+     * Returns an observable which will emit a list of all messages present inside the given user's node in firebase.
+     *
+     * @param userId Id of the user for whom messages need to be fetched.
+     * @return The observable which will emit a list of all messages for the userId.
+     */
     @Override
-    public Observable<List<MessageEntity>> getMessages() {
+    public Observable<List<MessageEntity>> getMessages(String userId) {
         Query query = database
                 .child(ROOT_MESSAGES)
                 .child(authManager.getCurrentUserId());
         return getList(query, MessageEntity.class, false);
     }
 
+    /**
+     * Creates a message inside the current user's node in firebase.
+     *
+     * @param message The item to be created.
+     * @return The observable that doesn't emit anything.
+     */
     @Override
     public Observable<Void> postMessage(MessageEntity message) {
         DatabaseReference reference = database
                 .child(ROOT_MESSAGES)
                 .child(authManager.getCurrentUserId());
-        return create(reference, message, null);
+        return create(reference, message, (Void) new Object());
     }
 }

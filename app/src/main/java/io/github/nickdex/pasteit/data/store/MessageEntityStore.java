@@ -23,19 +23,23 @@ import io.github.nickdex.pasteit.data.entity.MessageEntity;
 import rx.Observable;
 
 /**
- * Interface that represents a data store from where clips are retrieved.
+ * Interface that represents a data store where messages are stored.
  */
 public interface MessageEntityStore extends EntityStore {
 
     /**
-     * Get an {@link rx.Observable} which will emit a List of {@link MessageEntity}.
+     * Returns an observable which will emit a list of all messages for the userId.
+     *
+     * @param userId Id of the user for whom messages need to be fetched.
+     * @return The observable which will emit a list of all messages for the userId.
      */
-    Observable<List<MessageEntity>> getMessages();
+    Observable<List<MessageEntity>> getMessages(String userId);
 
     /**
-     * Paste a {@link MessageEntity}.
+     * Posts a message to the data store.
      *
-     * @param message The clip item to paste.
+     * @param message The item to post.
+     * @return The observable that doesn't emit anything.
      */
     Observable<Void> postMessage(MessageEntity message);
 }

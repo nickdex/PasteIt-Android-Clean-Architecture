@@ -23,6 +23,7 @@ import javax.inject.Named;
 
 import io.github.nickdex.pasteit.domain.Messenger;
 import io.github.nickdex.pasteit.domain.model.ClipItem;
+import io.github.nickdex.pasteit.domain.model.Device;
 import io.github.nickdex.pasteit.domain.repository.MessageRepository;
 import io.github.nickdex.pasteit.interactor.UseCase;
 import rx.Observable;
@@ -31,7 +32,7 @@ import rx.Scheduler;
 /**
  * Fetches all {@link ClipItem} messages for the requested device from repository.
  */
-public class GetMessages extends UseCase<String, List<ClipItem>, MessageRepository> {
+public class GetMessages extends UseCase<Device, List<ClipItem>, MessageRepository> {
 
     @Inject
     public GetMessages(MessageRepository repository,
@@ -42,7 +43,7 @@ public class GetMessages extends UseCase<String, List<ClipItem>, MessageReposito
     }
 
     @Override
-    public Observable<List<ClipItem>> buildObservable(String device) {
-        return repository.getMessages(device, messenger);
+    public Observable<List<ClipItem>> buildObservable(Device device) {
+        return repository.getClips(device, messenger);
     }
 }

@@ -24,16 +24,16 @@ import dagger.Component;
 import io.github.nickdex.pasteit.AndroidApplication;
 import io.github.nickdex.pasteit.core.di.AppScope;
 import io.github.nickdex.pasteit.core.di.modules.ApplicationModule;
+import io.github.nickdex.pasteit.core.di.modules.RepositoryModule;
 import io.github.nickdex.pasteit.view.activity.BaseActivity;
 import rx.Scheduler;
 
 /**
  * A component whose lifetime is the life of the application.
- *
- * @
  */
 @AppScope
-@Component(modules = ApplicationModule.class)
+@Component(modules = {ApplicationModule.class,
+        RepositoryModule.class})
 public interface ApplicationComponent {
 
     void inject(BaseActivity activity);

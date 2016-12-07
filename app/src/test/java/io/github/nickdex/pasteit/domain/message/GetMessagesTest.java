@@ -16,7 +16,10 @@
 
 package io.github.nickdex.pasteit.domain.message;
 
+import org.junit.Test;
+
 import io.github.nickdex.pasteit.domain.BaseUseCaseTest;
+import io.github.nickdex.pasteit.domain.model.Device;
 import io.github.nickdex.pasteit.domain.repository.MessageRepository;
 import io.github.nickdex.pasteit.interactor.message.GetMessages;
 
@@ -28,7 +31,7 @@ import static org.mockito.Mockito.verify;
  */
 public class GetMessagesTest extends BaseUseCaseTest<GetMessages, MessageRepository> {
 
-    private final String CHROME = "CHROME";
+    private final Device CHROME = Device.CHROME;
 
     @Override
     protected GetMessages createUseCase() {
@@ -40,8 +43,9 @@ public class GetMessagesTest extends BaseUseCaseTest<GetMessages, MessageReposit
         return mock(MessageRepository.class);
     }
 
+    @Test
     @Override
     public void testBuildUseCaseObservable() {
-        testBuildUseCaseObservable(CHROME, () -> verify(mockRepository).getMessages(CHROME, mockMessenger));
+        testBuildUseCaseObservable(CHROME, () -> verify(mockRepository).getClips(CHROME, mockMessenger));
     }
 }
