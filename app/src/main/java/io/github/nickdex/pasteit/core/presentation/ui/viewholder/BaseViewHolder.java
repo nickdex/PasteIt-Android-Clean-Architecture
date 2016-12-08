@@ -21,6 +21,12 @@ import android.view.View;
 
 import butterknife.ButterKnife;
 
+/**
+ * Base class for View Holders.
+ *
+ * @param <VIEW>  View of the single element.
+ * @param <MODEL> Model class representing the element.
+ */
 public abstract class BaseViewHolder<VIEW extends View, MODEL> extends RecyclerView.ViewHolder {
 
     protected View view;
@@ -31,5 +37,11 @@ public abstract class BaseViewHolder<VIEW extends View, MODEL> extends RecyclerV
         ButterKnife.bind(this, view);
     }
 
+    /**
+     * Binds model to the xml layout.
+     *
+     * @param model The presentation layer model object being used for binding.
+     * @param position The position of model object in RecyclerView.
+     */
     public abstract void bind(MODEL model, int position);
 }

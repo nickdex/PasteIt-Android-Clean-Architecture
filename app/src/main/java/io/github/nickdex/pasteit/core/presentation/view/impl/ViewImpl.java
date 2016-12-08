@@ -30,6 +30,10 @@ import io.github.nickdex.pasteit.R;
 import io.github.nickdex.pasteit.core.presentation.presenter.BasePresenter;
 import io.github.nickdex.pasteit.core.presentation.util.ProgressDialogHelper;
 
+/**
+ * A class that handles various operations like progress, showing messages on a View.
+ * Activity, Fragment, View and Service are supported.
+ */
 public abstract class ViewImpl implements io.github.nickdex.pasteit.core.presentation.view.View {
 
     private Activity activity;
@@ -61,6 +65,9 @@ public abstract class ViewImpl implements io.github.nickdex.pasteit.core.present
         init();
     }
 
+    /**
+     * Initializes a new progressDialogHelper object.
+     */
     private void init() {
         progressDialogHelper = new ProgressDialogHelper();
     }
@@ -129,6 +136,12 @@ public abstract class ViewImpl implements io.github.nickdex.pasteit.core.present
         imm.hideSoftInputFromWindow(getWindowToken(), 0);
     }
 
+    /**
+     * A method that completes the swipe-to-refresh action and loads data.
+     *
+     * @param swipeRefreshLayout The layout on which action is called.
+     * @param presenter          The presenter which will refresh the data.
+     */
     public void initSwipeToRefresh(SwipeRefreshLayout swipeRefreshLayout, BasePresenter presenter) {
         swipeRefreshLayout.setOnRefreshListener(() -> {
             swipeRefreshLayout.setRefreshing(false);
@@ -136,6 +149,11 @@ public abstract class ViewImpl implements io.github.nickdex.pasteit.core.present
         });
     }
 
+    /**
+     * Returns the view's context, null otherwise.
+     *
+     * @return Returns the view's context, null otherwise.
+     */
     private Context getContext() {
         if (activity != null) {
             return activity;
@@ -149,6 +167,11 @@ public abstract class ViewImpl implements io.github.nickdex.pasteit.core.present
         return null;
     }
 
+    /**
+     * Returns root view of layout, null otherwise.
+     *
+     * @return Returns root view of layout, null otherwise. The view is used in creating Snackbar.
+     */
     private View getSnackBarBackground() {
         if (activity != null) {
             return activity.findViewById(android.R.id.content);
@@ -160,6 +183,11 @@ public abstract class ViewImpl implements io.github.nickdex.pasteit.core.present
         return null;
     }
 
+    /**
+     * Retrieves a unique token identifying the window this view is attached to.
+     *
+     * @return A unique token to be used in hiding the keyboard.
+     */
     private IBinder getWindowToken() {
         if (activity != null) {
             View view = activity.getCurrentFocus();

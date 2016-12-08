@@ -29,6 +29,12 @@ import io.github.nickdex.pasteit.core.presentation.presenter.BasePresenter;
 import io.github.nickdex.pasteit.core.presentation.ui.loader.PresenterLoader;
 import io.github.nickdex.pasteit.core.presentation.view.View;
 
+/**
+ * Base class for Activities. It combines presenter and view.
+ *
+ * @param <VIEW>      The view attached to this activity.
+ * @param <PRESENTER> The presenter for this activity.
+ */
 public abstract class BaseActivity<VIEW extends View,
         PRESENTER extends BasePresenter> extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<PRESENTER> {
@@ -39,6 +45,14 @@ public abstract class BaseActivity<VIEW extends View,
 
     protected VIEW view;
 
+    /**
+     * A method to launch activity as start of a new task on the history stack.
+     *
+     * @param context The context to launch activity.
+     * @param activityClass The activityClass that is to be launched.
+     * @param clearStack The flag to make new activity the root of the task and finish any old activities.
+     * @return The intent to launch activity as start of a new task on the history stack
+     */
     protected static Intent getBaseStartIntent(Context context, Class<? extends BaseActivity> activityClass, boolean clearStack) {
         Intent intent = new Intent(context, activityClass);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -100,9 +114,13 @@ public abstract class BaseActivity<VIEW extends View,
     public final void onLoadFinished(Loader<PRESENTER> loader, PRESENTER presenter) {
         this.presenter = presenter;
         onLoadFinished();
+        //noinspection unchecked
         presenter.attachView(view);
     }
 
+    /**
+     * Called when a previously created loader has finished its load.
+     */
     public void onLoadFinished() {
     }
 
@@ -111,14 +129,33 @@ public abstract class BaseActivity<VIEW extends View,
         onLoadReset();
     }
 
+    /**
+     * Called when a previously created loader is being reset, and thus making its data unavailable.
+     * The application should at this point remove any references it has to the Loader's data.
+     */
     public void onLoadReset() {
     }
 
+    /**
+     * The view that is associated with this activity.
+     *
+     * @return The view that is associated with this activity.
+     */
     public VIEW getView() {
         return view;
     }
 
+    /**
+     * The view to be associated with this activity.
+     *
+     * @return The view to be associated with this activity.
+     */
     protected abstract VIEW initView();
 
+    /**
+     * A presenter associated with this activity that can be lazily loaded.
+     *
+     * @return A presenter that is passed to the loader.
+     */
     protected abstract Lazy<PRESENTER> initPresenter();
 }

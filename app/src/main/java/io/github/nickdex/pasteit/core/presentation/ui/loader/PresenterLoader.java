@@ -21,8 +21,16 @@ import android.support.v4.content.Loader;
 
 import io.github.nickdex.pasteit.core.presentation.presenter.BasePresenter;
 
+/**
+ * A class that handles loading operations of a Presenter.
+ *
+ * @param <PRESENTER> The presenter associated with it.
+ */
 public abstract class PresenterLoader<PRESENTER extends BasePresenter> extends Loader<PRESENTER> {
 
+    /**
+     * The presenter that is managed by the PresenterLoader.
+     */
     private PRESENTER presenter;
 
     public PresenterLoader(Context context) {
@@ -53,5 +61,10 @@ public abstract class PresenterLoader<PRESENTER extends BasePresenter> extends L
         presenter = null;
     }
 
+    /**
+     * Initializes a presenter for this loader.
+     *
+     * @return A presenter for this loader.
+     */
     protected abstract PRESENTER initPresenter();
 }

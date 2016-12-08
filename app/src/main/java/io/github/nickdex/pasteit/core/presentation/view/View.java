@@ -22,22 +22,63 @@ package io.github.nickdex.pasteit.core.presentation.view;
 
 public interface View {
 
+    /**
+     * Shows the message to user.
+     *
+     * @param message The string to be shown to user.
+     */
     void showMessage(String message);
 
+    /**
+     * Shows the message to user.
+     *
+     * @param messageResId The resource id to string to be shown to user.
+     */
     void showMessage(int messageResId);
 
+    /**
+     * Shows the visual indicator of progress to user.
+     */
     void showProgress();
 
+    /**
+     * Shows the visual indicator of progress to user with a message.
+     *
+     * @param message The string message to be shown during operation.
+     */
     void showProgress(String message);
 
+    /**
+     * Shows the visual indicator of progress to user with a message.
+     *
+     * @param messageResId The resource id to string message to be shown during operation.
+     */
     void showProgress(int messageResId);
 
+    /**
+     * Shows the visual indicator of progress to user with a message and a title.
+     *
+     * @param message The string message to be shown during operation.
+     * @param title   The string to be set as title.
+     */
     void showProgress(String message, String title);
 
+    /**
+     * Shows the visual indicator of progress to user with a message and a title.
+     *
+     * @param messageResId The resource id to string message to be shown during operation.
+     * @param titleResId The resource id to string to be set as title.
+     */
     void showProgress(int messageResId, int titleResId);
 
+    /**
+     * Hides the visual indicator of progress to user.
+     */
     void hideProgress();
 
+    /**
+     * Closes the soft keyboard on screen.
+     */
     void hideKeyboard();
 }
 
