@@ -120,7 +120,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             protected void populateViewHolder(ItemViewHolder viewHolder, ClipItem model, int position) {
                 progressBar.setVisibility(ProgressBar.INVISIBLE);
                 viewHolder.itemTextView.setText(model.getText());
-                viewHolder.deviceTextView.setText(model.getDeviceName());
                 //TODO Add drawable resource for chrome
                 /*
                 if(getString(R.string.phone_device_type).equals(model.getSenderEmail()))

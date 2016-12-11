@@ -14,20 +14,18 @@
  * limitations under the License.
  */
 
-package io.github.nickdex.pasteit.domain.model;
+package io.github.nickdex.pasteit.presentation.model;
+
+import android.net.Uri;
 
 /**
- * Model class to represent a clip item.
+ * Model Class to represent a message in presentation layer.
  */
-public final class ClipItem {
+public class MessageModel {
 
     private String text;
-    private Device deviceType;
-    private String senderEmail;
     private long timestamp;
-
-    public ClipItem() {
-    }
+    private Uri deviceUri;
 
     public String getText() {
         return text;
@@ -35,14 +33,6 @@ public final class ClipItem {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public Device getDeviceType() {
-        return this.deviceType;
-    }
-
-    public void setDeviceType(Device deviceType) {
-        this.deviceType = deviceType;
     }
 
     public long getTimestamp() {
@@ -53,12 +43,11 @@ public final class ClipItem {
         this.timestamp = timestamp;
     }
 
-    public String getSenderEmail() {
-        return senderEmail;
+    public Uri getDeviceUri() {
+        return deviceUri;
     }
 
-    public void setSenderEmail(String senderEmail) {
-        this.senderEmail = senderEmail;
+    public void setDeviceUri(Uri deviceUri) {
+        this.deviceUri = deviceUri;
     }
 }
-

@@ -16,6 +16,8 @@
 
 package io.github.nickdex.pasteit.data.mapper;
 
+import javax.inject.Inject;
+
 import io.github.nickdex.pasteit.core.data.mapper.BaseMapper;
 import io.github.nickdex.pasteit.data.entity.UserEntity;
 import io.github.nickdex.pasteit.domain.model.User;
@@ -25,12 +27,16 @@ import io.github.nickdex.pasteit.domain.model.User;
  */
 public class UserEntityUserDmMapper extends BaseMapper<UserEntity, User> {
 
+    @Inject
+    public UserEntityUserDmMapper() {
+    }
+
     /**
      * Method which converts user to a user entity.
      * Default value is used when corresponding data is not found in user.
      *
-     * @param user A user that contains some data.
-     * @return The user entity mapped with data from user.
+     * @param user A User that contains some data.
+     * @return The UserEntity mapped with data from user.
      */
     @Override
     public UserEntity mapToFirst(User user) {
@@ -45,8 +51,8 @@ public class UserEntityUserDmMapper extends BaseMapper<UserEntity, User> {
      * Method which converts userEntity to a user.
      * Default value is used when corresponding data is not found in userEntity.
      *
-     * @param userEntity A user entity that contains some data.
-     * @return The user mapped with data from userEntity.
+     * @param userEntity A UserEntity that contains some data.
+     * @return The User mapped with data from userEntity.
      */
     @Override
     public User mapToSecond(UserEntity userEntity) {

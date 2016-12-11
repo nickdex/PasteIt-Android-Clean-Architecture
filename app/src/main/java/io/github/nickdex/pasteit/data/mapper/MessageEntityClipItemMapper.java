@@ -18,6 +18,8 @@ package io.github.nickdex.pasteit.data.mapper;
 
 import android.text.TextUtils;
 
+import javax.inject.Inject;
+
 import io.github.nickdex.pasteit.core.data.mapper.BaseMapper;
 import io.github.nickdex.pasteit.data.entity.MessageEntity;
 import io.github.nickdex.pasteit.domain.model.ClipItem;
@@ -28,6 +30,10 @@ import io.github.nickdex.pasteit.domain.model.Device;
  */
 public class MessageEntityClipItemMapper extends BaseMapper<MessageEntity, ClipItem> {
 
+    @Inject
+    public MessageEntityClipItemMapper() {
+    }
+
     /**
      * Method which converts clipItem to a message entity.
      *
@@ -36,6 +42,8 @@ public class MessageEntityClipItemMapper extends BaseMapper<MessageEntity, ClipI
      */
     @Override
     public MessageEntity mapToFirst(ClipItem clipItem) {
+        if (clipItem == null) return null;
+
         MessageEntity entity = new MessageEntity();
 
         entity.setText(clipItem.getText());
@@ -58,6 +66,8 @@ public class MessageEntityClipItemMapper extends BaseMapper<MessageEntity, ClipI
      */
     @Override
     public ClipItem mapToSecond(MessageEntity messageEntity) {
+        if (messageEntity == null) return null;
+
         ClipItem clipItem = new ClipItem();
 
         clipItem.setText(messageEntity.getText());

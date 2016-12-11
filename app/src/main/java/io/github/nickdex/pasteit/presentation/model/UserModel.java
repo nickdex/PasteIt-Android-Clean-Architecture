@@ -14,29 +14,40 @@
  * limitations under the License.
  */
 
-package io.github.nickdex.pasteit.data.manager;
+package io.github.nickdex.pasteit.presentation.model;
 
 import android.net.Uri;
 
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-
-import io.github.nickdex.pasteit.interactor.user.CreateUser;
-import rx.Subscriber;
-
 /**
- * Interface that manages user account.
+ * Model Class to represent a user in presentation layer.
  */
-public interface AuthManager {
+public class UserModel {
 
-    void signInGoogle(GoogleSignInAccount acct, Subscriber<String> signInSubscriber, CreateUser createUser);
+    private Uri photoUri;
+    private String name;
+    private String email;
 
-    void signOut(Subscriber<String> signOutSubscriber);
+    public Uri getPhotoUri() {
+        return photoUri;
+    }
 
-    boolean isSignedIn();
+    public void setPhotoUri(Uri photoUri) {
+        this.photoUri = photoUri;
+    }
 
-    String getCurrentUserId();
+    public String getName() {
+        return name;
+    }
 
-    String getCurrentUserEmail();
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    Uri getPhotoUrl();
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

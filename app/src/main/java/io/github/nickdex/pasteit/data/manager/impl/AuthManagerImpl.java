@@ -16,6 +16,7 @@
 
 package io.github.nickdex.pasteit.data.manager.impl;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -34,7 +35,7 @@ import io.github.nickdex.pasteit.interactor.user.CreateUser;
 import rx.Subscriber;
 
 /**
- * Implementation of {@link AuthManager}
+ * Implementation of {@link AuthManager}.
  */
 public class AuthManagerImpl implements AuthManager {
 
@@ -112,8 +113,31 @@ public class AuthManagerImpl implements AuthManager {
     public String getCurrentUserId() {
         String id = null;
         if (isSignedIn()) {
+            //noinspection ConstantConditions
             id = auth.getCurrentUser().getUid();
         }
         return id;
     }
+
+    @Override
+    public String getCurrentUserEmail() {
+        String email = null;
+        if (isSignedIn()) {
+            //noinspection ConstantConditions
+            email = auth.getCurrentUser().getEmail();
+        }
+        return email;
+    }
+
+    @Override
+    public Uri getPhotoUrl() {
+        Uri photoUri = null;
+        if (isSignedIn()) {
+            //noinspection ConstantConditions
+            photoUri = auth.getCurrentUser().getPhotoUrl();
+        }
+        return photoUri;
+    }
+
+
 }
