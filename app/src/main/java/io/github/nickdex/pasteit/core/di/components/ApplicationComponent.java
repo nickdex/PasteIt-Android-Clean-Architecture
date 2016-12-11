@@ -16,36 +16,24 @@
 
 package io.github.nickdex.pasteit.core.di.components;
 
-import android.content.Context;
-
-import javax.inject.Named;
-
 import dagger.Component;
 import io.github.nickdex.pasteit.AndroidApplication;
 import io.github.nickdex.pasteit.core.di.AppScope;
 import io.github.nickdex.pasteit.core.di.modules.ApplicationModule;
+import io.github.nickdex.pasteit.core.di.modules.EntityStoreModule;
 import io.github.nickdex.pasteit.core.di.modules.RepositoryModule;
-import io.github.nickdex.pasteit.view.activity.BaseActivity;
-import rx.Scheduler;
+import io.github.nickdex.pasteit.core.di.modules.ViewModule;
 
 /**
  * A component whose lifetime is the life of the application.
  */
 @AppScope
 @Component(modules = {ApplicationModule.class,
-        RepositoryModule.class})
+        RepositoryModule.class,
+        EntityStoreModule.class})
 public interface ApplicationComponent {
 
-    void inject(BaseActivity activity);
+    ViewComponent plus(ViewModule viewModule);
 
     void inject(AndroidApplication app);
-
-    //Exposed to sub-graphs.
-    Context context();
-
-    @Named("Thread")
-    Scheduler threadScheduler();
-
-    @Named("PostExecution")
-    Scheduler postExecutionScheduler();
 }

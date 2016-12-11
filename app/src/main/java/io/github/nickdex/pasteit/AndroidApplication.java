@@ -22,6 +22,7 @@ import com.squareup.leakcanary.LeakCanary;
 
 import javax.inject.Inject;
 
+import io.github.nickdex.pasteit.core.data.manager.NetworkManager;
 import io.github.nickdex.pasteit.core.di.components.ApplicationComponent;
 import io.github.nickdex.pasteit.core.di.components.DaggerApplicationComponent;
 import io.github.nickdex.pasteit.core.di.modules.ApplicationModule;
@@ -35,6 +36,10 @@ public class AndroidApplication extends Application {
 
     @Inject
     AuthManager authManager;
+
+    @Inject
+    NetworkManager networkManager;
+
     private ApplicationComponent applicationComponent;
 
     @Override
@@ -42,6 +47,13 @@ public class AndroidApplication extends Application {
         super.onCreate();
         this.initializeInjector();
         this.initializeLeakDetection();
+        networkManager.start();
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        networkManager.stop();
     }
 
     private void initializeInjector() {

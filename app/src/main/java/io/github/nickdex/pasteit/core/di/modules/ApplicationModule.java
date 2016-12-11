@@ -38,10 +38,11 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * Dagger module that provides objects which will live during the application lifecycle.
+ * Dagger module that holds provides objects which will live during the application lifecycle.
  */
 @Module
 public class ApplicationModule {
+
     private final AndroidApplication application;
 
     public ApplicationModule(AndroidApplication application) {

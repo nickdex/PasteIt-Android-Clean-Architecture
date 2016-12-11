@@ -22,6 +22,10 @@ import io.github.nickdex.pasteit.R;
 import io.github.nickdex.pasteit.core.presentation.view.View;
 import io.github.nickdex.pasteit.domain.Messenger;
 
+/**
+ * Dagger module that holds reference to associated view and provides the messenger to app.
+ * It shows message to user such as no network or showing from cache.
+ */
 @Module
 public class ViewModule {
 

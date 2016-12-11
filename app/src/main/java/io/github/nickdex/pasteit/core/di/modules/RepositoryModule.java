@@ -30,7 +30,7 @@ import io.github.nickdex.pasteit.domain.repository.MessageRepository;
 import io.github.nickdex.pasteit.domain.repository.UserRepository;
 
 /**
- * Dagger module that will provide repositories.
+ * Dagger module that provides repositories to app.
  */
 @Module
 public class RepositoryModule {

@@ -14,31 +14,16 @@
  * limitations under the License.
  */
 
-package io.github.nickdex.pasteit.core.di.modules;
+package io.github.nickdex.pasteit.core.di.components;
 
-import android.app.Activity;
-
-import dagger.Module;
-import dagger.Provides;
-import io.github.nickdex.pasteit.core.di.PerActivity;
+import dagger.Subcomponent;
+import io.github.nickdex.pasteit.core.di.ViewScope;
+import io.github.nickdex.pasteit.core.di.modules.ViewModule;
 
 /**
- * A module to wrap the Activity state and expose it to the graph.
+ * Sub-component representing classes in dagger that are limited to a {@link ViewScope}.
  */
-@Module
-public class ActivityModule {
-    private final Activity activity;
-
-    public ActivityModule(Activity activity) {
-        this.activity = activity;
-    }
-
-    /**
-     * Expose the activity to dependents in the graph.
-     */
-    @Provides
-    @PerActivity
-    Activity activity() {
-        return this.activity;
-    }
+@ViewScope
+@Subcomponent(modules = ViewModule.class)
+public interface ViewComponent {
 }
