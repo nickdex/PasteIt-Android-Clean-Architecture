@@ -52,6 +52,7 @@ public class MessageModelClipItemMapper extends BaseMapper<MessageModel, ClipIte
         MessageModel messageModel = new MessageModel();
 
         messageModel.setText(clipItem.getText());
+        messageModel.setDeviceType(clipItem.getDeviceType());
 
         if (clipItem.getDeviceType() == Device.PHONE)
             messageModel.setDeviceUri(resIdToUri(R.drawable.chip_smartphone));
@@ -77,14 +78,7 @@ public class MessageModelClipItemMapper extends BaseMapper<MessageModel, ClipIte
         ClipItem clipItem = new ClipItem();
 
         clipItem.setText(messageModel.getText());
-
-        if (messageModel.getDeviceUri().equals(resIdToUri(R.drawable.chip_chrome)))
-            clipItem.setDeviceType(Device.CHROME);
-        else if (messageModel.getDeviceUri().equals(resIdToUri(R.drawable.chip_smartphone)))
-            clipItem.setDeviceType(Device.PHONE);
-        else
-            clipItem.setDeviceType(Device.GHOST);
-
+        clipItem.setDeviceType(messageModel.getDeviceType());
         clipItem.setSenderEmail(authManager.getCurrentUserEmail());
         clipItem.setTimestamp(messageModel.getTimestamp());
         return clipItem;

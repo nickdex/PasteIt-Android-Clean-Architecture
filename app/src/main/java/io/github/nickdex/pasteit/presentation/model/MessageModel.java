@@ -18,14 +18,17 @@ package io.github.nickdex.pasteit.presentation.model;
 
 import android.net.Uri;
 
+import io.github.nickdex.pasteit.domain.model.Device;
+
 /**
  * Model Class to represent a message in presentation layer.
  */
 public class MessageModel {
 
     private String text;
-    private long timestamp;
+    private Device deviceType;
     private Uri deviceUri;
+    private long timestamp;
 
     public String getText() {
         return text;
@@ -33,6 +36,14 @@ public class MessageModel {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Device getDeviceType() {
+        return deviceType;
+    }
+
+    public void setDeviceType(Device deviceType) {
+        this.deviceType = deviceType;
     }
 
     public long getTimestamp() {
