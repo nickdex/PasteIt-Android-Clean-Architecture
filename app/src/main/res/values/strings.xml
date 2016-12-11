@@ -30,9 +30,23 @@
     <string name="phone_device_type" translatable="false">phone</string>
     <string name="chrome_device_type" translatable="false">chrome</string>
 
+    // Network Messages
     <string name="no_internet_connection">No internet connection</string>
     <string name="data_from_cache">No internet connection. Data was loaded from cache</string>
     <!--<string name="authentication_error">Authentication error</string>-->
     <string name="loading">Loading…</string>
+
+    <!-- Time Ago -->
+    <string name="time_ago_just_now">just now</string>
+    <string name="time_ago_term_a">a</string>
+    <string name="time_ago_term_an">an</string>
+
+    <string name="time_ago_unit_seconds">seconds</string>
+    <string name="time_ago_unit_minute">minute</string>
+    <string name="time_ago_unit_minutes">minutes</string>
+    <string name="time_ago_unit_hour">hour</string>
+    <string name="time_ago_unit_hours">hours</string>
+
+    <string name="time_ago_suffix"> ago</string>
 
 </resources>
