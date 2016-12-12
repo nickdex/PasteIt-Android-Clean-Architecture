@@ -56,13 +56,13 @@ public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesP
 
     /**
      * Method to launch this activity from context.
+     *  @param context The caller to this activity.
      *
-     * @param context The caller to this activity.
-     * @param device  The device for which messages has to be loaded.
      */
-    public static void launch(Context context, Device device) {
+    public static void launch(Context context) {
         Intent intent = BaseActivity.getBaseStartIntent(context, MessagesActivity.class, false);
-        intent.putExtra(KEY_DEVICE_TYPE, device);
+        // TODO: 12/12/16 Get device from navigation drawer
+        intent.putExtra(KEY_DEVICE_TYPE, Device.CHROME);
         context.startActivity(intent);
     }
 

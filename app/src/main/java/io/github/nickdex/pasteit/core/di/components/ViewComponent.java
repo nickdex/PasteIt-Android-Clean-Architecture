@@ -20,6 +20,7 @@ import dagger.Subcomponent;
 import io.github.nickdex.pasteit.core.di.ViewScope;
 import io.github.nickdex.pasteit.core.di.modules.ViewModule;
 import io.github.nickdex.pasteit.presentation.ui.activity.MessagesActivity;
+import io.github.nickdex.pasteit.presentation.ui.activity.SplashActivity;
 
 /**
  * Sub-component representing classes in dagger that are limited to a {@link ViewScope}.
@@ -29,4 +30,6 @@ import io.github.nickdex.pasteit.presentation.ui.activity.MessagesActivity;
 public interface ViewComponent {
 
     void inject(MessagesActivity activity);
+
+    void inject(SplashActivity splashActivity);
 }

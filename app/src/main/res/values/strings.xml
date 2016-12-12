@@ -32,6 +32,7 @@
     <!--Descriptions-->
     <string name="send_button_description">Send</string>
     <string name="paste_button_description">Paste the content</string>
+    <string name="splash_screen">Splash Screen</string>
 
     <!--Progress Messages-->
     <string name="sending">Sending…</string>
