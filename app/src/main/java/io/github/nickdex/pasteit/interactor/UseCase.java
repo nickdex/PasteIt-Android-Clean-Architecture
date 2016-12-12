@@ -69,6 +69,9 @@ public abstract class UseCase<REQUEST_DATA, RESPONSE_DATA, REPOSITORY extends Re
         return !subscription.hasSubscriptions();
     }
 
+    /**
+     * Clears all subscriptions and removes this use case from repository.
+     */
     public void unSubscribe() {
         if (!isUnSubscribed()) {
             subscription.clear();

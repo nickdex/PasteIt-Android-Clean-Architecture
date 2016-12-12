@@ -50,6 +50,7 @@ public class FirebaseMessageEntityStore extends FirebaseEntityStore implements M
      */
     @Override
     public Observable<List<MessageEntity>> getMessages(String userId) {
+        // TODO: 12/12/16 Use the argument to get required messages.
         Query query = database
                 .child(ROOT_MESSAGES)
                 .child(authManager.getCurrentUserId());

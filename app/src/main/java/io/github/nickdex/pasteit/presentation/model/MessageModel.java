@@ -16,8 +16,6 @@
 
 package io.github.nickdex.pasteit.presentation.model;
 
-import android.net.Uri;
-
 import io.github.nickdex.pasteit.domain.model.Device;
 
 /**
@@ -27,8 +25,8 @@ public class MessageModel {
 
     private String text;
     private Device deviceType;
-    private Uri deviceUri;
     private long timestamp;
+    private int deviceResId;
 
     public String getText() {
         return text;
@@ -54,11 +52,11 @@ public class MessageModel {
         this.timestamp = timestamp;
     }
 
-    public Uri getDeviceUri() {
-        return deviceUri;
+    public int getDeviceResId() {
+        return deviceResId;
     }
 
-    public void setDeviceUri(Uri deviceUri) {
-        this.deviceUri = deviceUri;
+    public void setDeviceResId(int deviceResId) {
+        this.deviceResId = deviceResId;
     }
 }

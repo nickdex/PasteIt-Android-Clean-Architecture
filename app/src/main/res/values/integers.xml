@@ -23,5 +23,6 @@
     <integer name="ALMOST_HOUR">3240</integer>
     <integer name="A_HOUR">3600</integer>
     <integer name="HOURS">4320</integer>
+    <integer name="ALMOST_DAY">86040</integer>
     <integer name="A_DAY">86400</integer>
 </resources>

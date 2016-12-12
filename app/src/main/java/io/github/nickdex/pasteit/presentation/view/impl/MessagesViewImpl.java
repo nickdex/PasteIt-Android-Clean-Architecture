@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-package io.github.nickdex.pasteit.core.di.components;
+package io.github.nickdex.pasteit.presentation.view.impl;
 
-import dagger.Subcomponent;
-import io.github.nickdex.pasteit.core.di.ViewScope;
-import io.github.nickdex.pasteit.core.di.modules.ViewModule;
-import io.github.nickdex.pasteit.presentation.ui.activity.MessagesActivity;
+import io.github.nickdex.pasteit.core.presentation.ui.activity.BaseActivity;
+import io.github.nickdex.pasteit.core.presentation.view.impl.ViewImpl;
+import io.github.nickdex.pasteit.presentation.view.MessagesView;
 
 /**
- * Sub-component representing classes in dagger that are limited to a {@link ViewScope}.
+ * A class that combines ViewImpl and MessagesView.
  */
-@ViewScope
-@Subcomponent(modules = ViewModule.class)
-public interface ViewComponent {
+public abstract class MessagesViewImpl extends ViewImpl implements MessagesView {
 
-    void inject(MessagesActivity activity);
+    public MessagesViewImpl(BaseActivity activity) {
+        super(activity);
+    }
 }

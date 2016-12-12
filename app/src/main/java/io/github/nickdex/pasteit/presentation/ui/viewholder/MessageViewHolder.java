@@ -20,11 +20,14 @@ import android.content.Context;
 import android.view.Gravity;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
+
 import io.github.nickdex.pasteit.core.presentation.ui.viewholder.BaseViewHolder;
 import io.github.nickdex.pasteit.databinding.ItemMessageBinding;
 import io.github.nickdex.pasteit.domain.model.Device;
 import io.github.nickdex.pasteit.presentation.model.MessageModel;
 import io.github.nickdex.pasteit.presentation.util.TimeAgo;
+import io.github.nickdex.pasteit.presentation.view.MessagesView;
 
 /**
  * View Holder for messages.
@@ -33,10 +36,13 @@ public class MessageViewHolder extends BaseViewHolder<ItemMessageBinding, Messag
 
     private Context context;
 
-    public MessageViewHolder(Context context,
+    private MessagesView messagesView;
+
+    public MessageViewHolder(MessagesView messagesView, Context context,
                              ItemMessageBinding binding) {
         super(binding);
         this.context = context;
+        this.messagesView = messagesView;
     }
 
     /**
@@ -53,7 +59,12 @@ public class MessageViewHolder extends BaseViewHolder<ItemMessageBinding, Messag
         } else {
             root.setGravity(Gravity.START);
         }
-        // TODO: 12/12/16 Add click listener to copy text
+        // TODO: 12/12/16 Add click listener to the copy button also
+        root.setOnLongClickListener(v -> {
+            messagesView.copyText(messageModel, position);
+            return true;
+        });
+        Glide.with(context).load(messageModel.getDeviceResId()).into(binding.deviceImageView);
         binding.itemTextView.setText(messageModel.getText());
         binding.timeTextView.setText(TimeAgo.getPrettyTime(messageModel.getTimestamp(), context));
     }

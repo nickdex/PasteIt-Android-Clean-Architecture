@@ -23,7 +23,7 @@ import rx.Subscriber;
  * The subscriber used to for executing use cases in presentation layer.
  * It is used for performing certain actions as use case execute.
  */
-public class DefaultSubscriber<T> extends Subscriber<T> {
+public abstract class DefaultSubscriber<T> extends Subscriber<T> {
 
     private View view;
 
@@ -31,12 +31,6 @@ public class DefaultSubscriber<T> extends Subscriber<T> {
         this.view = view;
     }
 
-    /**
-     * Notifies the Observer that the {@link rx.Observable} has finished sending push-based notifications
-     * and hides the visual indicator of progress of the view.
-     * <p>
-     * The {@link rx.Observable} will not call this method if it calls {@link #onError}.
-     */
     @Override
     public void onCompleted() {
         if (view != null) {
@@ -44,31 +38,9 @@ public class DefaultSubscriber<T> extends Subscriber<T> {
         }
     }
 
-    /**
-     * Notifies the Observer that the {@link rx.Observable} has experienced an error condition.
-     * <p>
-     * If the {@link rx.Observable} calls this method, it will not thereafter call {@link #onNext} or
-     * {@link #onCompleted}.
-     *
-     * @param e the exception encountered by the rx.Observable
-     */
     @Override
-    public void onError(Throwable e) {
+    public abstract void onError(Throwable e);
 
-    }
-
-    /**
-     * Provides the Observer with a new item to observe.
-     * <p>
-     * The {@link rx.Observable} may call this method 0 or more times.
-     * <p>
-     * The {@code rx.Observable} will not call this method again after it calls either {@link #onCompleted} or
-     * {@link #onError}.
-     *
-     * @param t the item emitted by the rx.Observable
-     */
     @Override
-    public void onNext(T t) {
-
-    }
+    public abstract void onNext(T t);
 }

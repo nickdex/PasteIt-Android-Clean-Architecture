@@ -16,8 +16,6 @@
 
 package io.github.nickdex.pasteit.presentation.mapper;
 
-import android.net.Uri;
-
 import javax.inject.Inject;
 
 import io.github.nickdex.pasteit.R;
@@ -55,11 +53,11 @@ public class MessageModelClipItemMapper extends BaseMapper<MessageModel, ClipIte
         messageModel.setDeviceType(clipItem.getDeviceType());
 
         if (clipItem.getDeviceType() == Device.PHONE)
-            messageModel.setDeviceUri(resIdToUri(R.drawable.chip_smartphone));
+            messageModel.setDeviceResId(R.drawable.chip_smartphone);
         else if (clipItem.getDeviceType() == Device.CHROME)
-            messageModel.setDeviceUri(resIdToUri(R.drawable.chip_chrome));
+            messageModel.setDeviceResId(R.drawable.chip_chrome);
         else
-            messageModel.setDeviceUri(resIdToUri(R.drawable.chip_desktop));
+            messageModel.setDeviceResId(R.drawable.chip_desktop);
 
         messageModel.setTimestamp(clipItem.getTimestamp());
         return messageModel;
@@ -84,7 +82,4 @@ public class MessageModelClipItemMapper extends BaseMapper<MessageModel, ClipIte
         return clipItem;
     }
 
-    private Uri resIdToUri(int resId) {
-        return Uri.parse("android.resource://io.github.nickdex.pasteit/" + resId);
-    }
 }

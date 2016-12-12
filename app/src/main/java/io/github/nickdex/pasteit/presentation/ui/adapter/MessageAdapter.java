@@ -28,6 +28,7 @@ import io.github.nickdex.pasteit.R;
 import io.github.nickdex.pasteit.databinding.ItemMessageBinding;
 import io.github.nickdex.pasteit.presentation.model.MessageModel;
 import io.github.nickdex.pasteit.presentation.ui.viewholder.MessageViewHolder;
+import io.github.nickdex.pasteit.presentation.view.MessagesView;
 
 /**
  * Adapter for messages.
@@ -36,15 +37,17 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
 
     private List<MessageModel> items = new ArrayList<>();
 
-    public MessageAdapter() {
-        // TODO: 12/12/16 Create DialogView equivalent.
+    private MessagesView messagesView;
+
+    public MessageAdapter(MessagesView messagesView) {
+        this.messagesView = messagesView;
     }
 
     @Override
     public MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemMessageBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                 R.layout.item_message, parent, false);
-        return new MessageViewHolder(parent.getContext(), binding);
+        return new MessageViewHolder(messagesView, parent.getContext(), binding);
     }
 
     @Override
