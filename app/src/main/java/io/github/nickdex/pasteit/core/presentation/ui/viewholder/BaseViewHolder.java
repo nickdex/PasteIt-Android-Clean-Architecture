@@ -16,25 +16,22 @@
 
 package io.github.nickdex.pasteit.core.presentation.ui.viewholder;
 
+import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-
-import butterknife.ButterKnife;
 
 /**
  * Base class for View Holders.
  *
- * @param <VIEW>  View of the single element.
+ * @param <BINDING>  Binding class for the element.
  * @param <MODEL> Model class representing the element.
  */
-public abstract class BaseViewHolder<VIEW extends View, MODEL> extends RecyclerView.ViewHolder {
+public abstract class BaseViewHolder<BINDING extends ViewDataBinding, MODEL> extends RecyclerView.ViewHolder {
 
-    protected View view;
+    protected BINDING binding;
 
-    public BaseViewHolder(VIEW view) {
-        super(view);
-        this.view = view;
-        ButterKnife.bind(this, view);
+    public BaseViewHolder(BINDING binding) {
+        super(binding.getRoot());
+        this.binding = binding;
     }
 
     /**

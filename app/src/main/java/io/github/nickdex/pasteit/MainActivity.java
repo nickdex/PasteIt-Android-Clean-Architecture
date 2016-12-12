@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         firebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ClipItem, ItemViewHolder>(
                 ClipItem.class,
-                R.layout.item_clip,
+                R.layout.item_message,
                 ItemViewHolder.class,
                 firebaseDatabaseReference.child(CLIP_ITEMS_CHILD)) {
             @Override
@@ -236,7 +236,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         ItemViewHolder(View v) {
             super(v);
             itemTextView = (TextView) itemView.findViewById(R.id.itemTextView);
-            deviceTextView = (TextView) itemView.findViewById(R.id.deviceTextView);
+            deviceTextView = (TextView) itemView.findViewById(R.id.timeTextView);
             deviceImageView = (CircleImageView) itemView.findViewById(R.id.deviceImageView);
         }
     }
