@@ -18,6 +18,7 @@ package io.github.nickdex.pasteit.core.presentation.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
@@ -30,13 +31,15 @@ import io.github.nickdex.pasteit.core.presentation.ui.loader.PresenterLoader;
 import io.github.nickdex.pasteit.core.presentation.view.View;
 
 /**
- * Base class for Activities. It combines presenter and view.
+ * Base class for all activities.
  *
- * @param <VIEW>      The view attached to this activity.
- * @param <PRESENTER> The presenter for this activity.
+ * @param <VIEW> The view associated with the activity. It is used to render data on screen.
+ * @param <PRESENTER> The presenter that controls the events.
+ * @param <BINDING> The binding that joins layouts with data from models.
  */
 public abstract class BaseActivity<VIEW extends View,
-        PRESENTER extends BasePresenter> extends AppCompatActivity
+        PRESENTER extends BasePresenter,
+        BINDING extends ViewDataBinding> extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<PRESENTER> {
 
     private static final int LOADER_ID = 101;
@@ -44,6 +47,8 @@ public abstract class BaseActivity<VIEW extends View,
     protected PRESENTER presenter;
 
     protected VIEW view;
+
+    protected BINDING binding;
 
     /**
      * A method to launch activity as start of a new task on the history stack.
@@ -65,6 +70,7 @@ public abstract class BaseActivity<VIEW extends View,
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = initBinding();
         view = initView();
 
         getSupportLoaderManager().initLoader(LOADER_ID, null, this);
@@ -158,4 +164,11 @@ public abstract class BaseActivity<VIEW extends View,
      * @return A presenter that is passed to the loader.
      */
     protected abstract Lazy<PRESENTER> initPresenter();
+
+    /**
+     * A {@link ViewDataBinding} class associated with this activity.
+     *
+     * @return The binding class associated with this activity.
+     */
+    protected abstract BINDING initBinding();
 }
