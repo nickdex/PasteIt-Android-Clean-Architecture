@@ -22,7 +22,10 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.View;
 
 import java.util.List;
 
@@ -115,6 +118,16 @@ public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesP
                 // notificationManager.cancel(message.hashCode());
                 view.showMessage("Clear Notif N/A");
             }
+
+            @Override
+            public void showProgress() {
+                binding.progressBar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void hideProgress() {
+                binding.progressBar.setVisibility(View.INVISIBLE);
+            }
         };
     }
 
@@ -136,6 +149,25 @@ public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesP
             String message = binding.inputText.getText().toString();
             if (!TextUtils.isEmpty(message)) {
                 presenter.sendMessage(message);
+            }
+        });
+        binding.inputText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().trim().length() > 0) {
+                    binding.sendButton.setEnabled(true);
+                } else {
+                    binding.sendButton.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }

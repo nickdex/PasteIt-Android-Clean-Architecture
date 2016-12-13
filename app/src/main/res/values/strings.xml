@@ -58,4 +58,7 @@
 
     <string name="time_ago_suffix"> ago</string>
 
+    <!--SnackBar Messages-->
+    <string name="message_sent">Message sent</string>
+
 </resources>

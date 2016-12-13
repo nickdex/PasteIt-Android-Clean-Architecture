@@ -59,7 +59,6 @@ public class MessagesPresenter extends BasePresenter<MessagesView> {
     }
 
     public void sendMessage(String message) {
-        view.showProgress(R.string.sending);
         MessageModel model = new MessageModel();
         model.setDeviceType(Device.PHONE);
         model.setText(message);
@@ -69,13 +68,12 @@ public class MessagesPresenter extends BasePresenter<MessagesView> {
             @Override
             public void onError(Throwable e) {
                 view.showMessage(e.getMessage());
-                view.hideProgress();
             }
 
             @Override
             public void onNext(Void aVoid) {
+                view.showMessage(R.string.message_sent);
                 view.clearInput();
-                view.hideProgress();
             }
         });
     }
@@ -93,6 +91,7 @@ public class MessagesPresenter extends BasePresenter<MessagesView> {
             @Override
             public void onNext(List<ClipItem> clipItems) {
                 view.renderMessages(mapper.mapToFirst(clipItems));
+                view.hideProgress();
             }
         });
     }

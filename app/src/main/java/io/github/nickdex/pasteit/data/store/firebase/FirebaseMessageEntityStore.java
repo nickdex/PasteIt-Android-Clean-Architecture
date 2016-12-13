@@ -68,6 +68,6 @@ public class FirebaseMessageEntityStore extends FirebaseEntityStore implements M
         DatabaseReference reference = database
                 .child(ROOT_MESSAGES)
                 .child(authManager.getCurrentUserId());
-        return create(reference, message, (Void) new Object());
+        return create(reference, message, null);
     }
 }
