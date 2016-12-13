@@ -16,6 +16,8 @@
 
 package io.github.nickdex.pasteit.presentation.presenter;
 
+import javax.inject.Inject;
+
 import io.github.nickdex.pasteit.core.data.manager.NetworkManager;
 import io.github.nickdex.pasteit.core.di.ViewScope;
 import io.github.nickdex.pasteit.core.presentation.presenter.BasePresenter;
@@ -30,6 +32,7 @@ public class SplashPresenter extends BasePresenter<SplashView> {
 
     private AuthManager authManager;
 
+    @Inject
     public SplashPresenter(NetworkManager networkManager, AuthManager authManager) {
         super(networkManager);
         this.authManager = authManager;

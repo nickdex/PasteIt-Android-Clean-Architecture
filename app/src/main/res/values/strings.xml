@@ -16,6 +16,8 @@
 
 <resources>
     <string name="app_name">PasteIt</string>
+    <string name="label_login">Login</string>
+    <string name="label_messages">Messages</string>
 
     <string name="editText_input_hint">Paste here</string>
 
@@ -25,10 +27,6 @@
     <!--Temporary-->
     <string name="welcome_text">Please Sign in to get started</string>
 
-    <!--Constants-->
-    <string name="phone_device_type" translatable="false">phone</string>
-    <string name="chrome_device_type" translatable="false">chrome</string>
-
     <!--Descriptions-->
     <string name="send_button_description">Send</string>
     <string name="paste_button_description">Paste the content</string>
@@ -36,12 +34,16 @@
 
     <!--Progress Messages-->
     <string name="sending">Sending…</string>
+    <string name="loading">Loading…</string>
+    <string name="authenticating">Authenticating…</string>
 
     <!--Network Messages-->
     <string name="no_internet_connection">No internet connection</string>
     <string name="data_from_cache">No internet connection. Data was loaded from cache</string>
-    <!--<string name="authentication_error">Authentication error</string>-->
-    <string name="loading">Loading…</string>
+
+    <!--Authentication Messages-->
+    <string name="auth_failed">Authentication Failed</string>
+    <string name="sign_out_failed">Sign out failed</string>
 
     <!-- Time Ago -->
     <string name="time_ago_just_now">just now</string>

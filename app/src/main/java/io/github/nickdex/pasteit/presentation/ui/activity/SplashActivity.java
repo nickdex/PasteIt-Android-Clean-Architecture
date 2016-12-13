@@ -37,7 +37,7 @@ import io.github.nickdex.pasteit.presentation.view.impl.SplashViewImpl;
 public class SplashActivity extends BaseDaggerActivity<SplashView, SplashPresenter, ActivitySplashBinding> {
 
     @Inject
-    Lazy<SplashPresenter> presenter;
+    Lazy<SplashPresenter> splashPresenter;
 
     public void launch(Context context) {
         Intent intent = getBaseStartIntent(context, SplashActivity.class, true);
@@ -55,19 +55,20 @@ public class SplashActivity extends BaseDaggerActivity<SplashView, SplashPresent
             @Override
             public void goToMessages() {
                 MessagesActivity.launch(SplashActivity.this);
+                finish();
             }
 
             @Override
             public void goToLogin() {
-                // TODO: 12/12/16 Uncomment
-//                LoginActivity.launch(SplashActivity.this);
+                LoginActivity.launch(SplashActivity.this);
+                finish();
             }
         };
     }
 
     @Override
     protected Lazy<SplashPresenter> initPresenter() {
-        return presenter;
+        return splashPresenter;
     }
 
     @Override

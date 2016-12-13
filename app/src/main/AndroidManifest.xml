@@ -35,6 +35,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".presentation.ui.activity.LoginActivity"
+            android:label="@string/label_login" />
+        <activity
+            android:name=".presentation.ui.activity.MessagesActivity"
+            android:label="@string/label_messages" />
+
     </application>
 
 </manifest>

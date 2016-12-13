@@ -19,6 +19,7 @@ package io.github.nickdex.pasteit.core.di.components;
 import dagger.Subcomponent;
 import io.github.nickdex.pasteit.core.di.ViewScope;
 import io.github.nickdex.pasteit.core.di.modules.ViewModule;
+import io.github.nickdex.pasteit.presentation.ui.activity.LoginActivity;
 import io.github.nickdex.pasteit.presentation.ui.activity.MessagesActivity;
 import io.github.nickdex.pasteit.presentation.ui.activity.SplashActivity;
 
@@ -31,5 +32,7 @@ public interface ViewComponent {
 
     void inject(MessagesActivity activity);
 
-    void inject(SplashActivity splashActivity);
+    void inject(SplashActivity activity);
+
+    void inject(LoginActivity activity);
 }
