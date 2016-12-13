@@ -26,7 +26,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import io.github.nickdex.pasteit.presentation.util.TimeAgo;
+import io.github.nickdex.pasteit.framework.presentation.util.TimeAgo;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

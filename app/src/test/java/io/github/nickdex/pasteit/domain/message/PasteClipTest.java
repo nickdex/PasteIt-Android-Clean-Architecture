@@ -19,9 +19,9 @@ package io.github.nickdex.pasteit.domain.message;
 import org.junit.Test;
 
 import io.github.nickdex.pasteit.domain.BaseUseCaseTest;
-import io.github.nickdex.pasteit.domain.model.ClipItem;
-import io.github.nickdex.pasteit.domain.repository.MessageRepository;
-import io.github.nickdex.pasteit.interactor.message.PasteClip;
+import io.github.nickdex.pasteit.framework.domain.model.ClipItem;
+import io.github.nickdex.pasteit.framework.domain.repository.MessageRepository;
+import io.github.nickdex.pasteit.framework.usecase.message.PasteClip;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;

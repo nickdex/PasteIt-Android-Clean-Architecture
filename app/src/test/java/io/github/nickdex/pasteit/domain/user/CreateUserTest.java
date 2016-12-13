@@ -19,9 +19,9 @@ package io.github.nickdex.pasteit.domain.user;
 import org.junit.Test;
 
 import io.github.nickdex.pasteit.domain.BaseUseCaseTest;
-import io.github.nickdex.pasteit.domain.model.User;
-import io.github.nickdex.pasteit.domain.repository.UserRepository;
-import io.github.nickdex.pasteit.interactor.user.CreateUser;
+import io.github.nickdex.pasteit.framework.domain.model.User;
+import io.github.nickdex.pasteit.framework.domain.repository.UserRepository;
+import io.github.nickdex.pasteit.framework.usecase.user.CreateUser;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;

@@ -23,8 +23,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.inject.Named;
 
-import io.github.nickdex.pasteit.domain.repository.Repository;
-import io.github.nickdex.pasteit.interactor.GetUseCase;
+import io.github.nickdex.pasteit.framework.domain.Messenger;
+import io.github.nickdex.pasteit.framework.domain.repository.Repository;
+import io.github.nickdex.pasteit.framework.usecase.GetUseCase;
+import io.github.nickdex.pasteit.framework.usecase.UseCase;
 import rx.Observable;
 import rx.Scheduler;
 import rx.observers.TestSubscriber;
@@ -36,7 +38,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
- * Test class for {@link io.github.nickdex.pasteit.interactor.UseCase}
+ * Test class for {@link UseCase}
  */
 @RunWith(MockitoJUnitRunner.class)
 public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUseCase, UseCaseTest.TestRepository> {
@@ -79,8 +81,6 @@ public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUseCase, UseCas
     public void unSubscribe_AfterExecute_AsUnSubscribed() {
         Assert.assertThat(useCase.isUnSubscribed(), is(true));
         useCase.execute(testSubscriber);
-        // TODO change useCase for longer action to uncomment this line
-        //assertThat(useCase.isUnSubscribed(), Is.is(false));
         useCase.unSubscribe();
         Assert.assertThat(useCase.isUnSubscribed(), is(true));
     }
@@ -92,10 +92,10 @@ public class UseCaseTest extends BaseUseCaseTest<UseCaseTest.TestUseCase, UseCas
     class TestUseCase extends GetUseCase<Integer, TestRepository> {
 
 
-        public TestUseCase(TestRepository repository,
-                           Messenger messenger,
-                           @Named("Thread") Scheduler threadScheduler,
-                           @Named("PostExecution") Scheduler postExecutionScheduler) {
+        TestUseCase(TestRepository repository,
+                    Messenger messenger,
+                    @Named("Thread") Scheduler threadScheduler,
+                    @Named("PostExecution") Scheduler postExecutionScheduler) {
             super(repository, messenger, threadScheduler, postExecutionScheduler);
         }
 

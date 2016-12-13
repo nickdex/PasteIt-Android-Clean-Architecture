@@ -21,8 +21,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import io.github.nickdex.pasteit.domain.repository.Repository;
-import io.github.nickdex.pasteit.interactor.UseCase;
+import io.github.nickdex.pasteit.framework.domain.Messenger;
+import io.github.nickdex.pasteit.framework.domain.repository.Repository;
+import io.github.nickdex.pasteit.framework.usecase.UseCase;
 import rx.Scheduler;
 import rx.functions.Action0;
 
@@ -38,18 +39,14 @@ import static org.mockito.Mockito.verifyZeroInteractions;
 @RunWith(MockitoJUnitRunner.class)
 public abstract class BaseUseCaseTest<USE_CASE extends UseCase, REPOSITORY extends Repository> {
 
-    protected USE_CASE useCase;
-
     protected REPOSITORY mockRepository;
-
     @Mock
     protected Messenger mockMessenger;
-
     @Mock
     protected Scheduler mockThreadScheduler;
-
     @Mock
     protected Scheduler mockPostExecutionScheduler;
+    USE_CASE useCase;
 
     @Before
     public void setUp() {
@@ -64,6 +61,7 @@ public abstract class BaseUseCaseTest<USE_CASE extends UseCase, REPOSITORY exten
     public abstract void testBuildUseCaseObservable();
 
     protected void testBuildUseCaseObservable(Object requestData, Action0 action) {
+        //noinspection unchecked
         useCase.buildObservable(requestData);
         action.call();
         verifyNoMoreInteractions(mockRepository);

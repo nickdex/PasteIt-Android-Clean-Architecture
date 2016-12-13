@@ -22,11 +22,11 @@ import com.squareup.leakcanary.LeakCanary;
 
 import javax.inject.Inject;
 
-import io.github.nickdex.pasteit.core.data.manager.NetworkManager;
-import io.github.nickdex.pasteit.core.di.components.ApplicationComponent;
-import io.github.nickdex.pasteit.core.di.components.DaggerApplicationComponent;
-import io.github.nickdex.pasteit.core.di.modules.ApplicationModule;
-import io.github.nickdex.pasteit.data.manager.AuthManager;
+import io.github.nickdex.pasteit.framework.core.data.manager.NetworkManager;
+import io.github.nickdex.pasteit.framework.core.di.components.ApplicationComponent;
+import io.github.nickdex.pasteit.framework.core.di.components.DaggerApplicationComponent;
+import io.github.nickdex.pasteit.framework.core.di.modules.ApplicationModule;
+import io.github.nickdex.pasteit.framework.data.manager.AuthManager;
 
 /**
  * Class initializes {@link Application} level objects for the app.
