@@ -14,42 +14,65 @@
   ~ limitations under the License.
   -->
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_margin="@dimen/text_margin"
+        app:cardElevation="25dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/deviceImageView"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@drawable/background_device_type"
-            android:padding="10dp"
-            android:src="@drawable/chip_smartphone" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/ripple_layout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
+            app:mrl_rippleColor="@color/black">
 
-            <TextView
-                android:id="@+id/itemTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="18sp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/timeTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/deviceImageView"
+                    android:layout_width="@dimen/device_image_dimen"
+                    android:layout_height="@dimen/device_image_dimen"
+                    android:background="@color/accent"
+                    android:contentDescription="@string/device_image_content_description"
+                    android:src="@drawable/chip_smartphone_black" />
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/itemTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="@dimen/text_margin"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginStart="@dimen/text_margin"
+                    android:layout_marginTop="@dimen/text_margin"
+                    android:layout_toEndOf="@+id/deviceImageView"
+                    android:layout_toRightOf="@+id/deviceImageView"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/timeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/itemTextView"
+                    android:layout_alignStart="@id/itemTextView"
+                    android:layout_below="@id/itemTextView"
+                    android:layout_marginBottom="@dimen/text_padding"
+                    android:layout_marginEnd="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin"
+                    android:layout_marginTop="@dimen/text_padding"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+
+            </RelativeLayout>
+
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+    </android.support.v7.widget.CardView>
+
 </layout>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<!--
   ~ Copyright © 2016 Nikhil Warke
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,22 +14,12 @@
   ~ limitations under the License.
   -->
 
-<resources>
-    <color name="colorPrimary">#000</color>
-    <color name="colorPrimaryDark">#000</color>
-    <color name="colorAccent">#448AFF</color>
-
-    <color name="accent">#FFEE58</color>
-
-    <color name="button_foreground">#455A64</color>
-    <color name="divider">#B0BEC5</color>
-
-    <color name="chip_background">#CFD8DC</color>
-
-    <color name="baseBackground">#EEEEEE</color>
-    <color name="itemBackground">#DDDDDD</color>
-
-    <color name="black">#000000</color>
-    <color name="white">#FFFFFF</color>
-
-</resources>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="40dp"
+    android:height="40dp"
+    android:viewportHeight="24"
+    android:viewportWidth="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M2.01,21L23,12 2.01,3 2,10l15,2 -15,2z" />
+</vector>

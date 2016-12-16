@@ -62,7 +62,7 @@ class MessagesPresenter extends BasePresenter<MessagesView> {
         MessageModel model = new MessageModel();
         model.setDeviceType(Device.PHONE);
         model.setText(message);
-        model.setDeviceResId(R.drawable.chip_smartphone);
+        model.setDeviceResId(R.drawable.chip_smartphone_black);
         model.setTimestamp(System.currentTimeMillis());
         pasteClip.execute(mapper.mapToSecond(model), new DefaultSubscriber<Void>(view) {
             @Override

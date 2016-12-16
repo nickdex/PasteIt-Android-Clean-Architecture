@@ -16,9 +16,11 @@
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
+        <color android:color="@color/black" />
+    </item>
+    <item>
         <bitmap
-            android:gravity="center"
-            android:src="@drawable/splash"
-            android:tileMode="disabled" />
+            android:gravity="fill"
+            android:src="@drawable/splash" />
     </item>
 </layer-list>

@@ -60,6 +60,20 @@ android {
         }
     }
 
+    // If you need to add more flavors, consider using flavor dimensions.
+    productFlavors {
+        mock
+        prod
+    }
+
+    // Remove mockRelease as it's not needed.
+    android.variantFilter { variant ->
+        if (variant.buildType.name.equals('release')
+                && variant.getFlavors().get(0).name.equals('mock')) {
+            variant.setIgnore(true);
+        }
+    }
+
     // Always show the result of every unit test, even if it passes.
     testOptions.unitTests.all {
         testLogging {
@@ -86,10 +100,12 @@ dependencies {
     compile "com.jakewharton.timber:timber:$rootProject.timberVersion"
     compile "io.reactivex:rxandroid:$rootProject.rxAndroidVersion"
     compile "io.reactivex:rxjava:$rootProject.rxJavaVersion"
-    compile "com.jakewharton:butterknife:$rootProject.butterKniferVersion"
-    apt "com.jakewharton:butterknife-compiler:$rootProject.butterKniferVersion"
+    compile "com.jakewharton:butterknife:$rootProject.butterKnifeVersion"
+    apt "com.jakewharton:butterknife-compiler:$rootProject.butterKnifeVersion"
     compile "com.google.dagger:dagger:$rootProject.daggerVersion"
     apt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
+
+    compile "com.balysv:material-ripple:$rootProject.rippleVersion"
 
     compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     compile "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
@@ -102,16 +118,12 @@ dependencies {
 
     // Google
     compile "com.google.android.gms:play-services-auth:$rootProject.playServicesVersion"
+    compile "com.google.code.gson:gson:$rootProject.gsonVersion"
 //    compile "com.google.guava:guava:$rootProject.guavaVersion"
 
     // Firebase
     compile "com.google.firebase:firebase-database:$rootProject.firebaseVersion"
     compile "com.google.firebase:firebase-auth:$rootProject.firebaseVersion"
-    compile "com.google.firebase:firebase-messaging:$rootProject.firebaseVersion"
-
-    // Firebase UI
-    compile "com.firebaseui:firebase-ui-database:$rootProject.firebaseUiVersion"
-    compile "com.firebaseui:firebase-ui-auth:$rootProject.firebaseUiVersion"
 
     // Test dependencies
     testCompile "junit:junit:$rootProject.junitVersion"

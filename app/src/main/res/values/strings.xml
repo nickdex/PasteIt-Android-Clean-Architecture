@@ -19,7 +19,7 @@
     <string name="label_login">Login</string>
     <string name="label_messages">Messages</string>
 
-    <string name="editText_input_hint">Paste here</string>
+    <string name="editText_input_hint">Paste here…</string>
 
     <!--Menu-->
     <string name="sign_out_menu">Sign Out</string>
@@ -60,5 +60,6 @@
 
     <!--SnackBar Messages-->
     <string name="message_sent">Message sent</string>
+    <string name="device_image_content_description">Device Image</string>
 
 </resources>

@@ -52,7 +52,7 @@ public class MessageModelClipItemMapper extends BaseMapper<MessageModel, ClipIte
         messageModel.setDeviceType(clipItem.getDeviceType());
 
         if (clipItem.getDeviceType() == Device.PHONE)
-            messageModel.setDeviceResId(R.drawable.chip_smartphone);
+            messageModel.setDeviceResId(R.drawable.chip_smartphone_black);
         else if (clipItem.getDeviceType() == Device.CHROME)
             messageModel.setDeviceResId(R.drawable.chip_chrome);
         else

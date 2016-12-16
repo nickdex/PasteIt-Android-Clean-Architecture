@@ -17,14 +17,9 @@
 package io.github.nickdex.pasteit.messages;
 
 import android.content.Context;
-import android.view.Gravity;
-import android.widget.LinearLayout;
-
-import com.bumptech.glide.Glide;
 
 import io.github.nickdex.pasteit.databinding.ItemMessageBinding;
 import io.github.nickdex.pasteit.framework.core.presentation.ui.viewholder.BaseViewHolder;
-import io.github.nickdex.pasteit.framework.domain.model.Device;
 import io.github.nickdex.pasteit.framework.presentation.util.TimeAgo;
 import io.github.nickdex.pasteit.messages.model.MessageModel;
 import io.github.nickdex.pasteit.messages.view.MessagesView;
@@ -53,18 +48,15 @@ class MessageViewHolder extends BaseViewHolder<ItemMessageBinding, MessageModel>
      */
     @Override
     public void bind(MessageModel messageModel, int position) {
-        LinearLayout root = (LinearLayout) binding.getRoot();
-        if (messageModel.getDeviceType() == Device.PHONE) {
-            root.setGravity(Gravity.END);
-        } else {
-            root.setGravity(Gravity.START);
-        }
-        // TODO: 12/12/16 Add click listener to the copy button also
-        root.setOnLongClickListener(v -> {
-            messagesView.copyText(messageModel, position);
-            return true;
-        });
-        Glide.with(context).load(messageModel.getDeviceResId()).into(binding.deviceImageView);
+//        CardView root = (CardView) binding.getRoot();
+//         phones on left side
+//        if (messageModel.getDeviceType() == Device.PHONE) {
+//            root.setGravity(Gravity.END);
+//        } else {
+//            root.setGravity(Gravity.START);
+//        }
+        binding.rippleLayout.setOnClickListener(v -> messagesView.copyText(messageModel, position));
+        binding.deviceImageView.setImageResource(messageModel.getDeviceResId());
         binding.itemTextView.setText(messageModel.getText());
         binding.timeTextView.setText(TimeAgo.getPrettyTime(messageModel.getTimestamp(), context));
     }

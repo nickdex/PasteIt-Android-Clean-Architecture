@@ -27,6 +27,7 @@ import io.github.nickdex.pasteit.framework.core.di.components.ApplicationCompone
 import io.github.nickdex.pasteit.framework.core.di.components.DaggerApplicationComponent;
 import io.github.nickdex.pasteit.framework.core.di.modules.ApplicationModule;
 import io.github.nickdex.pasteit.framework.data.manager.AuthManager;
+import timber.log.Timber;
 
 /**
  * Class initializes {@link Application} level objects for the app.
@@ -47,6 +48,7 @@ public class AndroidApplication extends Application {
         super.onCreate();
         this.initializeInjector();
         this.initializeLeakDetection();
+        this.initTimber();
         networkManager.start();
     }
 
@@ -54,6 +56,11 @@ public class AndroidApplication extends Application {
     public void onTerminate() {
         super.onTerminate();
         networkManager.stop();
+    }
+
+    private void initTimber() {
+        if (BuildConfig.DEBUG)
+            Timber.plant(new Timber.DebugTree());
     }
 
     private void initializeInjector() {

@@ -124,7 +124,7 @@ public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesP
 
             @Override
             public void hideProgress() {
-                binding.progressBar.setVisibility(View.INVISIBLE);
+                binding.progressBar.setVisibility(View.GONE);
             }
         };
     }
