@@ -91,6 +91,7 @@ class MessagesPresenter extends BasePresenter<MessagesView> {
             @Override
             public void onNext(List<ClipItem> clipItems) {
                 view.renderMessages(mapper.mapToFirst(clipItems));
+                view.copyLatestClip(clipItems.get(clipItems.size() - 1).getText());
                 view.hideProgress();
             }
         });

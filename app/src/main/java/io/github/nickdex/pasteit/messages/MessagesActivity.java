@@ -122,6 +122,11 @@ public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesP
             }
 
             @Override
+            public void copyLatestClip(String text) {
+                clipboard.setClip(text);
+            }
+
+            @Override
             public void showProgress() {
                 binding.progressBar.setVisibility(View.VISIBLE);
             }

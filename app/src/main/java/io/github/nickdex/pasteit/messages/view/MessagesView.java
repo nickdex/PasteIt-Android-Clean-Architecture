@@ -57,4 +57,11 @@ public interface MessagesView extends View {
      * Clears the notification(s).
      */
     void clearMessageNotification();
+
+    /**
+     * Copies the text to the clipboard.
+     *
+     * @param text The string to be copied.
+     */
+    void copyLatestClip(String text);
 }
