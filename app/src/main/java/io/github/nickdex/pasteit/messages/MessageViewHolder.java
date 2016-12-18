@@ -55,7 +55,7 @@ class MessageViewHolder extends BaseViewHolder<ItemMessageBinding, MessageModel>
 //        } else {
 //            root.setGravity(Gravity.START);
 //        }
-        binding.rippleLayout.setOnClickListener(v -> messagesView.copyText(messageModel, position));
+        binding.rippleLayout.setOnClickListener(v -> messagesView.copyText(messageModel));
         binding.deviceImageView.setImageResource(messageModel.getDeviceResId());
         binding.itemTextView.setText(messageModel.getText());
         binding.timeTextView.setText(TimeAgo.getPrettyTime(messageModel.getTimestamp(), context));

@@ -103,9 +103,9 @@ public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesP
             }
 
             @Override
-            public void copyText(MessageModel message, int position) {
-                // TODO: 12/12/16 Copy the text to clipboard
-                view.showMessage("Copy N/A");
+            public void copyText(MessageModel message) {
+                clipboard.setClip(message.getText());
+                view.showMessage(getString(R.string.copy_message));
             }
 
             @Override

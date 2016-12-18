@@ -45,9 +45,8 @@ public interface MessagesView extends View {
      * Copies text to clipboard on a user event.
      *
      * @param message  The model that has content to be copied.
-     * @param position The position of the message model.
      */
-    void copyText(MessageModel message, int position);
+    void copyText(MessageModel message);
 
     /**
      * Clears the input text field.
