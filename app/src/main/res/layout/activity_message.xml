@@ -49,11 +49,12 @@
             <EditText
                 android:id="@+id/inputText"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:background="@color/transparent"
                 android:hint="@string/editText_input_hint"
+                android:maxLines="5"
                 android:paddingEnd="10dp"
                 android:paddingLeft="10dp"
                 android:paddingStart="10dp"
