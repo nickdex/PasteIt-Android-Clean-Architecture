@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package io.github.nickdex.pasteit;
+package io.github.nickdex.pasteit.copy;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.Context;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,26 +34,24 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class ClipBoardManagerTest {
 
-    @Mock
-    Context context;
-
+    private static final String TEXT = "Hello Nikhil";
     @Mock
     ClipboardManager mockSystemClipBoardManager;
-
+    @Mock
+    ClipData mockClipData;
     @Mock
     ClipData.Item message;
 
     @Test
     public void pasteWhenTextAvailable() {
-        when(context.getSystemService(Context.CLIPBOARD_SERVICE)).thenReturn(mockSystemClipBoardManager);
-        CharSequence data = "hello";
-        when(message.getText()).thenReturn(data);
-        when(mockSystemClipBoardManager.getPrimaryClip().getItemAt(0))
-                .thenReturn(message);
+        CharSequence clipText = TEXT;
+        when(message.getText()).thenReturn(clipText);
+        when(mockClipData.getItemAt(0)).thenReturn(message);
+        when(mockSystemClipBoardManager.getPrimaryClip()).thenReturn(mockClipData);
 
-        ClipBoardManager manager = new ClipBoardManager(context);
+        ClipBoardManager manager = new ClipBoardManager(mockSystemClipBoardManager);
 
-        String pasteData = manager.getMessage();
-        assertThat(pasteData, is(message.toString()));
+        String pasteData = manager.getClip();
+        assertThat(pasteData, is(TEXT));
     }
 }

@@ -33,6 +33,7 @@ import javax.inject.Inject;
 
 import dagger.Lazy;
 import io.github.nickdex.pasteit.R;
+import io.github.nickdex.pasteit.copy.ClipBoardManager;
 import io.github.nickdex.pasteit.databinding.ActivityMessageBinding;
 import io.github.nickdex.pasteit.framework.core.di.components.ViewComponent;
 import io.github.nickdex.pasteit.framework.domain.model.Device;
@@ -49,6 +50,9 @@ import io.github.nickdex.pasteit.messages.view.MessagesViewImpl;
 public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesPresenter, ActivityMessageBinding> {
 
     public static final String KEY_DEVICE_TYPE = "device_type";
+
+    @Inject
+    ClipBoardManager clipboard;
 
     @Inject
     Lazy<MessagesPresenter> messagesPresenter;
@@ -130,8 +134,9 @@ public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesP
     }
 
     private void initUi() {
-        initSendMessageButton();
+        switchToPaste();
         initMessageRecyclerView();
+        initInputTextField();
 
         view.clearMessageNotification();
     }
@@ -142,13 +147,27 @@ public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesP
         binding.messagesList.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private void initSendMessageButton() {
+    private void switchToPaste() {
+        binding.sendButton.setImageResource(R.drawable.ic_paste_black);
+        binding.sendButton.setOnClickListener(v -> {
+            String message = clipboard.getClip();
+            if (!TextUtils.isEmpty(message)) {
+                binding.inputText.setText(message);
+            }
+        });
+    }
+
+    private void switchToSend() {
+        binding.sendButton.setImageResource(R.drawable.ic_send_black);
         binding.sendButton.setOnClickListener(v -> {
             String message = binding.inputText.getText().toString();
             if (!TextUtils.isEmpty(message)) {
                 presenter.sendMessage(message);
             }
         });
+    }
+
+    private void initInputTextField() {
         binding.inputText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -157,9 +176,9 @@ public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesP
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.toString().trim().length() > 0) {
-                    binding.sendButton.setEnabled(true);
+                    switchToSend();
                 } else {
-                    binding.sendButton.setEnabled(false);
+                    switchToPaste();
                 }
             }
 

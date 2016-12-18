@@ -34,6 +34,7 @@ import javax.inject.Inject;
 import io.github.nickdex.pasteit.framework.data.entity.MessageEntity;
 import io.github.nickdex.pasteit.framework.data.store.MessageEntityStore;
 import rx.Observable;
+import rx.Subscriber;
 import timber.log.Timber;
 
 /**
@@ -57,6 +58,8 @@ public class MockFirebaseMessageEntityStore implements MessageEntityStore {
     private Gson gson;
     private Type type;
 
+    private Subscriber<? super List<MessageEntity>> messagesSubscriber;
+
     @Inject
     public MockFirebaseMessageEntityStore() {
         gson = new Gson();
@@ -67,10 +70,14 @@ public class MockFirebaseMessageEntityStore implements MessageEntityStore {
     @Override
     public Observable<List<MessageEntity>> getMessages(String userId) {
 
+
         JsonReader jsonReader = new JsonReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("res/raw/dummy.json")));
         dummyMessages = gson.fromJson(jsonReader, type);
         Timber.d(dummyMessages.toString());
-        return Observable.just(dummyMessages);
+        return Observable.create(subscriber -> {
+            MockFirebaseMessageEntityStore.this.messagesSubscriber = subscriber;
+            subscriber.onNext(dummyMessages);
+        });
     }
 
     @Override
@@ -87,6 +94,8 @@ public class MockFirebaseMessageEntityStore implements MessageEntityStore {
         if (jsonWriter != null)
             gson.toJson(message, type, jsonWriter);
 
-        return null;
+        messagesSubscriber.onNext(dummyMessages);
+
+        return Observable.just(null);
     }
 }

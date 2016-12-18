@@ -61,5 +61,6 @@
     <!--SnackBar Messages-->
     <string name="message_sent">Message sent</string>
     <string name="device_image_content_description">Device Image</string>
+    <string name="copy_message">Copied</string>
 
 </resources>

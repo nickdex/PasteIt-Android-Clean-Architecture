@@ -14,14 +14,10 @@
  * limitations under the License.
  */
 
-package io.github.nickdex.pasteit;
+package io.github.nickdex.pasteit.copy;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.Context;
-import android.widget.Toast;
-
-import timber.log.Timber;
 
 import static android.content.ClipDescription.MIMETYPE_TEXT_PLAIN;
 
@@ -30,31 +26,26 @@ import static android.content.ClipDescription.MIMETYPE_TEXT_PLAIN;
  */
 public class ClipBoardManager {
 
-    private Context mContext;
     private ClipboardManager clipboard;
 
-    public ClipBoardManager(Context context) {
-        clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+    public ClipBoardManager(ClipboardManager manager) {
+        clipboard = manager;
     }
 
-    public String getMessage() {
+    /**
+     * Returns latest clip's text data.
+     *
+     * @return Returns latest clip's text data, empty string if data is null.
+     */
+    public String getClip() {
         ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
-        CharSequence pasteData = item.getText();
 
-        if (pasteData != null) {
-            return pasteData.toString();
-        } else {
-            String message = "Type Not Supported";
-            Timber.e(message);
-            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
-            return "";
-        }
+        return item.getText().toString();
     }
 
-    public boolean canPaste() {
-        // If the clipboard doesn't contain data, disable the getMessage menu item.
-        // If it does contain data, decide if you can handle the data.
-        return clipboard.hasPrimaryClip() && clipboard.getPrimaryClipDescription().hasMimeType(MIMETYPE_TEXT_PLAIN);
+    public void setClip(String text) {
+        ClipData clipData = ClipData.newPlainText(MIMETYPE_TEXT_PLAIN, text);
+        clipboard.setPrimaryClip(clipData);
     }
 }
 

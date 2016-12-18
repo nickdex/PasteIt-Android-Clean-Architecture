@@ -16,6 +16,7 @@
 
 package io.github.nickdex.pasteit.framework.core.di.modules;
 
+import android.content.ClipboardManager;
 import android.content.Context;
 
 import com.google.android.gms.auth.api.Auth;
@@ -28,6 +29,7 @@ import dagger.Module;
 import dagger.Provides;
 import io.github.nickdex.pasteit.AndroidApplication;
 import io.github.nickdex.pasteit.R;
+import io.github.nickdex.pasteit.copy.ClipBoardManager;
 import io.github.nickdex.pasteit.framework.core.data.manager.NetworkManager;
 import io.github.nickdex.pasteit.framework.core.data.manager.impl.NetworkManagerImpl;
 import io.github.nickdex.pasteit.framework.core.di.AppScope;
@@ -86,6 +88,13 @@ public class ApplicationModule {
     @AppScope
     AuthManager providesAuthManager(GoogleApiClient googleApiClient) {
         return new AuthManagerImpl(googleApiClient);
+    }
+
+    @Provides
+    @AppScope
+    ClipBoardManager providesClipManager() {
+        ClipboardManager clipboardManager = (ClipboardManager) application.getSystemService(Context.CLIPBOARD_SERVICE);
+        return new ClipBoardManager(clipboardManager);
     }
 
     @Provides
