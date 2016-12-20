@@ -25,6 +25,7 @@ import io.github.nickdex.pasteit.framework.core.data.manager.NetworkManager;
 import io.github.nickdex.pasteit.framework.core.di.ViewScope;
 import io.github.nickdex.pasteit.framework.core.presentation.DefaultSubscriber;
 import io.github.nickdex.pasteit.framework.core.presentation.presenter.BasePresenter;
+import io.github.nickdex.pasteit.framework.data.manager.AuthManager;
 import io.github.nickdex.pasteit.framework.domain.model.ClipItem;
 import io.github.nickdex.pasteit.framework.domain.model.Device;
 import io.github.nickdex.pasteit.framework.usecase.message.GetMessages;
@@ -32,6 +33,7 @@ import io.github.nickdex.pasteit.framework.usecase.message.PasteClip;
 import io.github.nickdex.pasteit.messages.model.MessageModel;
 import io.github.nickdex.pasteit.messages.model.MessageModelClipItemMapper;
 import io.github.nickdex.pasteit.messages.view.MessagesView;
+import rx.Subscriber;
 
 /**
  * Contain simple methods to do operations on message.
@@ -47,15 +49,21 @@ class MessagesPresenter extends BasePresenter<MessagesView> {
 
     private Device device;
 
+    private Subscriber<String> signOutSubscriber;
+
+    private AuthManager authManager;
+
     @Inject
     public MessagesPresenter(NetworkManager networkManager,
                              GetMessages getMessages,
                              PasteClip pasteClip,
-                             MessageModelClipItemMapper mapper) {
+                             MessageModelClipItemMapper mapper,
+                             AuthManager authManager) {
         super(networkManager);
         this.getMessages = getMessages;
         this.pasteClip = pasteClip;
         this.mapper = mapper;
+        this.authManager = authManager;
     }
 
     void sendMessage(String message) {
@@ -112,6 +120,12 @@ class MessagesPresenter extends BasePresenter<MessagesView> {
         super.onViewDetached();
         getMessages.unSubscribe();
         pasteClip.unSubscribe();
+
+        // FIXME: 20/12/16 along with signOut
+        if (signOutSubscriber != null) {
+            signOutSubscriber.unsubscribe();
+            signOutSubscriber = null;
+        }
     }
 
     @Override
@@ -126,5 +140,24 @@ class MessagesPresenter extends BasePresenter<MessagesView> {
 
     public void setDevice(Device device) {
         this.device = device;
+    }
+
+    void signOut() {
+        // FIXME: 20/12/16 place this method in its appropriate place
+
+        signOutSubscriber = new DefaultSubscriber<String>(view) {
+            @Override
+            public void onNext(String userId) {
+                view.launchLogin();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+                view.showMessage("can't sign out");
+                view.hideProgress();
+            }
+        };
+        authManager.signOut(signOutSubscriber);
     }
 }

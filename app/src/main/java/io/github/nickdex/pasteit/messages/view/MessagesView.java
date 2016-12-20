@@ -64,4 +64,6 @@ public interface MessagesView extends View {
      * @param text The string to be copied.
      */
     void copyLatestClip(String text);
+
+    void launchLogin();
 }

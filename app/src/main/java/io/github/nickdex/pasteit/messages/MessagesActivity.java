@@ -21,10 +21,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import java.util.List;
@@ -38,6 +42,7 @@ import io.github.nickdex.pasteit.databinding.ActivityMessageBinding;
 import io.github.nickdex.pasteit.framework.core.di.components.ViewComponent;
 import io.github.nickdex.pasteit.framework.domain.model.Device;
 import io.github.nickdex.pasteit.framework.presentation.BaseDaggerActivity;
+import io.github.nickdex.pasteit.login.LoginActivity;
 import io.github.nickdex.pasteit.messages.model.MessageModel;
 import io.github.nickdex.pasteit.messages.view.MessagesView;
 import io.github.nickdex.pasteit.messages.view.MessagesViewImpl;
@@ -87,6 +92,22 @@ public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesP
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.sign_out_menu:
+                presenter.signOut();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected MessagesView initView() {
         return new MessagesViewImpl(this) {
             @Override
@@ -122,6 +143,11 @@ public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesP
             }
 
             @Override
+            public void showMessage(String message) {
+                Snackbar.make(binding.content, message, Snackbar.LENGTH_SHORT).show();
+            }
+
+            @Override
             public void copyLatestClip(String text) {
                 clipboard.setClip(text);
             }
@@ -134,6 +160,11 @@ public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesP
             @Override
             public void hideProgress() {
                 binding.progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void launchLogin() {
+                LoginActivity.launch(MessagesActivity.this);
             }
         };
     }
