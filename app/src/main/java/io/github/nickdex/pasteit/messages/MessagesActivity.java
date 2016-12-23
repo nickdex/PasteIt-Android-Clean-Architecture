@@ -16,7 +16,6 @@
 
 package io.github.nickdex.pasteit.messages;
 
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -71,7 +70,6 @@ public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesP
      */
     public static void launch(Context context) {
         Intent intent = getBaseStartIntent(context, MessagesActivity.class, false);
-        // TODO: 12/12/16 Get device from navigation drawer
         intent.putExtra(KEY_DEVICE_TYPE, Device.CHROME);
         context.startActivity(intent);
     }
@@ -136,10 +134,6 @@ public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesP
 
             @Override
             public void clearMessageNotification() {
-                NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                // TODO: 12/12/16 Add logic to cancel notification
-                // notificationManager.cancel(message.hashCode());
-                view.showMessage("Clear Notif N/A");
             }
 
             @Override

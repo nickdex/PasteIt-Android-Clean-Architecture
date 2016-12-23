@@ -92,7 +92,6 @@ public class AuthManagerImpl implements AuthManager {
                                 }
                             }
                         }
-
                 );
             }
 

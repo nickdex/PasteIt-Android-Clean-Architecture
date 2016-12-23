@@ -121,7 +121,6 @@ class MessagesPresenter extends BasePresenter<MessagesView> {
         getMessages.unSubscribe();
         pasteClip.unSubscribe();
 
-        // FIXME: 20/12/16 along with signOut
         if (signOutSubscriber != null) {
             signOutSubscriber.unsubscribe();
             signOutSubscriber = null;
@@ -143,8 +142,6 @@ class MessagesPresenter extends BasePresenter<MessagesView> {
     }
 
     void signOut() {
-        // FIXME: 20/12/16 place this method in its appropriate place
-
         signOutSubscriber = new DefaultSubscriber<String>(view) {
             @Override
             public void onNext(String userId) {
@@ -153,9 +150,7 @@ class MessagesPresenter extends BasePresenter<MessagesView> {
 
             @Override
             public void onError(Throwable e) {
-
                 view.showMessage("can't sign out");
-                view.hideProgress();
             }
         };
         authManager.signOut(signOutSubscriber);
