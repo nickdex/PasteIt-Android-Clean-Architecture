@@ -23,8 +23,14 @@
     <dimen name="message_vertical_padding">10dp</dimen>
     <dimen name="chip_border">5dp</dimen>
 
-    <dimen name="text_margin">20dp</dimen>
-    <dimen name="text_padding">10dp</dimen>
+    <dimen name="card_margin_end">50dp</dimen>
+    <dimen name="card_margin_start">16dp</dimen>
+    <dimen name="card_margin_top">12dp</dimen>
+    <dimen name="card_margin_bottom">40dp</dimen>
+    <dimen name="item_tv_margin">20dp</dimen>
+    <dimen name="item_tv_margin_end">20dp</dimen>
+    <dimen name="item_tv_padding">10dp</dimen>
+    <dimen name="time_tv_margin">10dp</dimen>
 
     <!--Message Activity-->
     <dimen name="button_dimen">40dp</dimen>
@@ -32,5 +38,6 @@
 
     <dimen name="messages_area_padding">10dp</dimen>
     <dimen name="device_image_dimen">40dp</dimen>
-    <dimen name="time_margin">10dp</dimen>
+    <dimen name="text_width">240dp</dimen>
+    <dimen name="item_tv_min_width">100dp</dimen>
 </resources>
