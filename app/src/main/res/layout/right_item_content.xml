@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright © 2016 Nikhil Warke
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/card_margin_bottom"
+            android:layout_marginEnd="@dimen/card_margin_start"
+            android:layout_marginRight="@dimen/card_margin_start"
+            android:layout_marginTop="@dimen/card_margin_top"
+            app:cardElevation="20dp">
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:id="@+id/ripple_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:mrl_rippleColor="@color/black">
+
+                <RelativeLayout
+                    android:id="@+id/contentRelativeLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/deviceImageView"
+                        android:layout_width="@dimen/device_image_dimen"
+                        android:layout_height="@dimen/device_image_dimen"
+                        android:layout_alignParentTop="true"
+                        android:layout_toEndOf="@+id/itemTextView"
+                        android:layout_toRightOf="@+id/itemTextView"
+                        android:background="@color/accent"
+                        android:contentDescription="@string/device_image_content_description"
+                        android:src="@drawable/chip_smartphone_black" />
+
+                    <TextView
+                        android:id="@+id/itemTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginEnd="@dimen/item_tv_margin_end"
+                        android:layout_marginLeft="@dimen/item_tv_margin_end"
+                        android:layout_marginRight="@dimen/item_tv_margin_end"
+                        android:layout_marginStart="@dimen/item_tv_margin"
+                        android:layout_marginTop="@dimen/item_tv_margin"
+                        android:maxWidth="270dp"
+                        android:minWidth="@dimen/item_tv_min_width"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/timeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@id/itemTextView"
+                        android:layout_alignStart="@id/itemTextView"
+                        android:layout_below="@id/itemTextView"
+                        android:layout_marginBottom="@dimen/time_tv_margin"
+                        android:layout_marginEnd="@dimen/time_tv_margin"
+                        android:layout_marginRight="@dimen/time_tv_margin"
+                        android:layout_marginTop="@dimen/time_tv_margin"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                </RelativeLayout>
+
+            </com.balysv.materialripple.MaterialRippleLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+    </LinearLayout>
+</layout>

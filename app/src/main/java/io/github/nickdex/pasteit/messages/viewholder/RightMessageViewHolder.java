@@ -14,28 +14,30 @@
  * limitations under the License.
  */
 
-package io.github.nickdex.pasteit.messages;
+package io.github.nickdex.pasteit.messages.viewholder;
 
 import android.content.Context;
+import android.databinding.ViewDataBinding;
 
-import io.github.nickdex.pasteit.databinding.ItemMessageBinding;
+import io.github.nickdex.pasteit.databinding.RightItemContentBinding;
 import io.github.nickdex.pasteit.framework.core.presentation.ui.viewholder.BaseViewHolder;
 import io.github.nickdex.pasteit.framework.presentation.util.TimeAgo;
 import io.github.nickdex.pasteit.messages.model.MessageModel;
 import io.github.nickdex.pasteit.messages.view.MessagesView;
 
 /**
- * View Holder for messages.
+ * View Holder for messages from android device.
  */
-class MessageViewHolder extends BaseViewHolder<ItemMessageBinding, MessageModel> {
+public class RightMessageViewHolder extends BaseViewHolder<ViewDataBinding, MessageModel> {
 
+    private final RightItemContentBinding rightBinding;
     private Context context;
-
     private MessagesView messagesView;
 
-    MessageViewHolder(MessagesView messagesView, Context context,
-                      ItemMessageBinding binding) {
-        super(binding);
+    public RightMessageViewHolder(MessagesView messagesView, Context context,
+                                  RightItemContentBinding rightBinding) {
+        super(rightBinding);
+        this.rightBinding = rightBinding;
         this.context = context;
         this.messagesView = messagesView;
     }
@@ -48,16 +50,9 @@ class MessageViewHolder extends BaseViewHolder<ItemMessageBinding, MessageModel>
      */
     @Override
     public void bind(MessageModel messageModel, int position) {
-//        CardView root = (CardView) binding.getRoot();
-//         phones on left side
-//        if (messageModel.getDeviceType() == Device.PHONE) {
-//            root.setGravity(Gravity.END);
-//        } else {
-//            root.setGravity(Gravity.START);
-//        }
-        binding.rippleLayout.setOnClickListener(v -> messagesView.copyText(messageModel));
-        binding.deviceImageView.setImageResource(messageModel.getDeviceResId());
-        binding.itemTextView.setText(messageModel.getText());
-        binding.timeTextView.setText(TimeAgo.getPrettyTime(messageModel.getTimestamp(), context));
+        rightBinding.rippleLayout.setOnClickListener(v -> messagesView.copyText(messageModel));
+        rightBinding.deviceImageView.setImageResource(messageModel.getDeviceResId());
+        rightBinding.itemTextView.setText(messageModel.getText());
+        rightBinding.timeTextView.setText(TimeAgo.getPrettyTime(messageModel.getTimestamp(), context));
     }
 }
