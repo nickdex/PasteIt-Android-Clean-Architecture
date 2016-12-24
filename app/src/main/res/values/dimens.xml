@@ -31,13 +31,15 @@
     <dimen name="item_tv_margin_end">20dp</dimen>
     <dimen name="item_tv_padding">10dp</dimen>
     <dimen name="time_tv_margin">10dp</dimen>
+    <dimen name="item_tv_min_width">100dp</dimen>
+    <dimen name="device_image_dimen">40dp</dimen>
 
     <!--Message Activity-->
     <dimen name="button_dimen">40dp</dimen>
     <dimen name="button_margin">10dp</dimen>
 
-    <dimen name="messages_area_padding">10dp</dimen>
-    <dimen name="device_image_dimen">40dp</dimen>
-    <dimen name="text_width">240dp</dimen>
-    <dimen name="item_tv_min_width">100dp</dimen>
+    <dimen name="messages_area_padding_top">27dp</dimen>
+    <dimen name="messages_area_padding">20dp</dimen>
+    <dimen name="input_min_height">60dp</dimen>
+    <dimen name="fab_margin">20dp</dimen>
 </resources>

@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -134,11 +133,6 @@ public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesP
 
             @Override
             public void clearMessageNotification() {
-            }
-
-            @Override
-            public void showMessage(String message) {
-                Snackbar.make(binding.content, message, Snackbar.LENGTH_SHORT).show();
             }
 
             @Override
