@@ -18,6 +18,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/messages_wallpaper_2">
@@ -31,40 +32,34 @@
                 android:id="@+id/messagesList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/inputText"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true">
 
             </android.support.v7.widget.RecyclerView>
 
-
             <ProgressBar
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyleLarge"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:visibility="visible" />
 
-            <EditText
-                android:id="@+id/inputText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:background="@color/accent"
-                android:hint="@string/editText_input_hint"
-                android:maxLines="5"
-                android:minHeight="@dimen/input_min_height"
-                android:paddingBottom="@dimen/messages_area_padding"
-                android:paddingEnd="@dimen/messages_area_padding"
-                android:paddingLeft="@dimen/messages_area_padding"
-                android:paddingStart="@dimen/messages_area_padding"
-                android:paddingTop="@dimen/messages_area_padding_top"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black" />
-
         </RelativeLayout>
+
+        <EditText
+            android:id="@+id/inputText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/accent"
+            android:hint="@string/editText_input_hint"
+            android:maxLines="5"
+            android:minHeight="@dimen/input_min_height"
+            android:padding="@dimen/input_padding"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            app:layout_behavior="io.github.nickdex.pasteit.messages.InputFieldBehavior" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/sendButton"
