@@ -14,22 +14,13 @@
   ~ limitations under the License.
   -->
 
-<resources>
-    <color name="colorPrimary">#000</color>
-    <color name="colorPrimaryDark">#000</color>
-    <color name="colorAccent">#42A5F5</color>
-
-    <color name="accent">#FFEE58</color>
-
-    <color name="button_foreground">#455A64</color>
-    <color name="divider">#B0BEC5</color>
-
-    <color name="chip_background">#CFD8DC</color>
-
-    <color name="baseBackground">#EEEEEE</color>
-    <color name="itemBackground">#DDDDDD</color>
-
-    <color name="black">#000000</color>
-    <color name="white">#FFFFFF</color>
-
-</resources>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <scale
+        android:duration="100"
+        android:fromXScale="0.1"
+        android:fromYScale="0.1"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:toXScale="1.0"
+        android:toYScale="1.0" />
+</set>

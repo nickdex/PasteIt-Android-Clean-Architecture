@@ -14,78 +14,66 @@
   ~ limitations under the License.
   -->
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
-        android:id="@+id/activity_main"
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/messages_wallpaper_2">
 
-        <android.support.design.widget.CoordinatorLayout
-            android:id="@+id/content"
+        <RelativeLayout
+            android:id="@+id/activity_main"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/linearLayout"
-            android:background="@drawable/messages_wallpaper_2">
+            android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/messagesList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/linearLayout"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true" />
+                android:layout_alignParentRight="true">
 
-        </android.support.design.widget.CoordinatorLayout>
+            </android.support.v7.widget.RecyclerView>
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleLarge"
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="visible" />
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="visible" />
+        </RelativeLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <EditText
+            android:id="@+id/inputText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
             android:background="@color/accent"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:hint="@string/editText_input_hint"
+            android:maxLines="5"
+            android:minHeight="@dimen/input_min_height"
+            android:padding="@dimen/input_padding"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            app:layout_behavior="io.github.nickdex.pasteit.messages.InputFieldBehavior" />
 
-            <EditText
-                android:id="@+id/inputText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="@color/transparent"
-                android:hint="@string/editText_input_hint"
-                android:maxLines="5"
-                android:paddingEnd="10dp"
-                android:paddingLeft="10dp"
-                android:paddingStart="10dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/sendButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_paste_black"
+            app:fabSize="normal"
+            app:layout_anchor="@id/inputText"
+            app:layout_anchorGravity="end"
+            app:rippleColor="@color/black" />
 
-            <ImageButton
-                android:id="@+id/sendButton"
-                android:layout_width="@dimen/button_dimen"
-                android:layout_height="@dimen/button_dimen"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/button_margin"
-                android:layout_marginStart="@dimen/button_margin"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/send_button_description"
-                android:enabled="false"
-                android:src="@drawable/ic_send_black" />
+    </android.support.design.widget.CoordinatorLayout>
 
-        </LinearLayout>
-
-    </RelativeLayout>
 
 </layout>
 

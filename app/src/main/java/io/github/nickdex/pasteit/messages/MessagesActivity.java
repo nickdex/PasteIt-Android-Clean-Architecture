@@ -29,6 +29,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import java.util.List;
 
@@ -128,17 +130,17 @@ public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesP
             }
 
             @Override
+            public void showMessage(String message) {
+                Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show();
+            }
+
+            @Override
             public void clearInput() {
                 binding.inputText.getText().clear();
             }
 
             @Override
             public void clearMessageNotification() {
-            }
-
-            @Override
-            public void showMessage(String message) {
-                Snackbar.make(binding.content, message, Snackbar.LENGTH_SHORT).show();
             }
 
             @Override
@@ -178,7 +180,11 @@ public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesP
     }
 
     private void switchToPaste() {
+        Animation scaleInAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scale_in);
+        Animation scaleOutAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scale_out);
+        binding.sendButton.startAnimation(scaleInAnim);
         binding.sendButton.setImageResource(R.drawable.ic_paste_black);
+        binding.sendButton.startAnimation(scaleOutAnim);
         binding.sendButton.setOnClickListener(v -> {
             String message = clipboard.getClip();
             if (!TextUtils.isEmpty(message)) {
@@ -188,7 +194,11 @@ public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesP
     }
 
     private void switchToSend() {
+        Animation scaleInAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scale_in);
+        Animation scaleOutAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scale_out);
+        binding.sendButton.startAnimation(scaleInAnim);
         binding.sendButton.setImageResource(R.drawable.ic_send_black);
+        binding.sendButton.startAnimation(scaleOutAnim);
         binding.sendButton.setOnClickListener(v -> {
             String message = binding.inputText.getText().toString();
             if (!TextUtils.isEmpty(message)) {
@@ -205,16 +215,15 @@ public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesP
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString().trim().length() > 0) {
+                if (s.length() > 0 && before == 0) {
                     switchToSend();
-                } else {
+                } else if (before > 0 && s.length() == 0) {
                     switchToPaste();
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
     }
