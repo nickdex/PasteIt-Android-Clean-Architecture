@@ -155,15 +155,15 @@ apply plugin: 'com.google.gms.google-services'
 /*
 Remove google services, use mocks instead in the mock flavor
 */
-android.applicationVariants.all { variant ->
-    if (variant.name.equals('mock')) {
-        project.tasks.each { t ->
-            if (t.name.contains('GoogleServices')) {
-                // Remove Google services plugin
-                variant.getVariantData().resourceGenTask.getTaskDependencies().values.remove(t)
-            }
-        }
-    }
-}
+//android.applicationVariants.all { variant ->
+//    if (variant.name.equals('mock')) {
+//        project.tasks.each { t ->
+//            if (t.name.contains('GoogleServices')) {
+//                // Remove Google services plugin
+//                variant.getVariantData().resourceGenTask.getTaskDependencies().values.remove(t)
+//            }
+//        }
+//    }
+//}
 
 apply plugin: 'me.tatarka.retrolambda'
