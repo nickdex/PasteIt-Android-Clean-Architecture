@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016 Nikhil Warke
+ * Copyright © 2017 Nikhil Warke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import io.github.nickdex.pasteit.framework.core.repository.RepositoryImpl;
 import io.github.nickdex.pasteit.framework.data.entity.UserEntity;
 import io.github.nickdex.pasteit.framework.data.mapper.UserEntityUserDmMapper;
 import io.github.nickdex.pasteit.framework.data.store.UserEntityStore;
+import io.github.nickdex.pasteit.framework.data.store.cache.UserCache;
 import io.github.nickdex.pasteit.framework.domain.Messenger;
 import io.github.nickdex.pasteit.framework.domain.listener.OnUserChangedListener;
 import io.github.nickdex.pasteit.framework.domain.model.User;
@@ -35,13 +36,14 @@ import rx.Observable;
 /**
  * A Class that performs operations on User.
  */
-public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserEntityUserDmMapper> implements UserRepository, OnUserChangedListener {
+public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserCache, UserEntityUserDmMapper> implements UserRepository, OnUserChangedListener {
 
     @Inject
     public UserRepositoryImpl(NetworkManager networkManager,
                               UserEntityStore cloudStore,
+                              UserCache cache,
                               UserEntityUserDmMapper userEntityUserDmMapper) {
-        super(networkManager, cloudStore, userEntityUserDmMapper);
+        super(networkManager, cloudStore, cache, userEntityUserDmMapper);
     }
 
 
@@ -70,7 +72,12 @@ public class UserRepositoryImpl extends RepositoryImpl<UserEntityStore, UserEnti
      */
     @Override
     public Observable<User> getUser(String userId, Messenger messenger) {
-        Observable<UserEntity> entityObservable = cloudStore.getUser(userId);
+        Observable<UserEntity> entityObservable;
+        if (networkManager.isNetworkAvailable()) {
+            entityObservable = cloudStore.getUser(userId).doOnNext(userEntity -> cache.saveUser(userEntity));
+        } else {
+            entityObservable = cache.getUser(userId);
+        }
         return entityObservable.map(userEntity -> entityDmMapper.mapToSecond(userEntity));
     }
 
