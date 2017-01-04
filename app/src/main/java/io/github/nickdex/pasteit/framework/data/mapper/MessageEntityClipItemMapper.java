@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016 Nikhil Warke
+ * Copyright © 2017 Nikhil Warke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,6 @@
  */
 
 package io.github.nickdex.pasteit.framework.data.mapper;
-
-import android.text.TextUtils;
 
 import javax.inject.Inject;
 
@@ -49,7 +47,7 @@ public class MessageEntityClipItemMapper extends BaseMapper<MessageEntity, ClipI
         entity.setText(clipItem.getText());
         Device device = clipItem.getDeviceType();
         if (device != null) {
-            entity.setDeviceType(getStringForDevice(device));
+            entity.setDeviceType(MapperUtil.getStringForDevice(device));
         }
         entity.setSenderEmail(clipItem.getSenderEmail());
         // null is handled by entity store.
@@ -71,39 +69,10 @@ public class MessageEntityClipItemMapper extends BaseMapper<MessageEntity, ClipI
         ClipItem clipItem = new ClipItem();
 
         clipItem.setText(messageEntity.getText());
-        clipItem.setDeviceType(getDeviceForString(messageEntity.getDeviceType()));
+        clipItem.setDeviceType(MapperUtil.getDeviceForString(messageEntity.getDeviceType()));
         clipItem.setSenderEmail(messageEntity.getSenderEmail());
         clipItem.setTimestamp(messageEntity.getTimestamp());
         return clipItem;
     }
 
-    /**
-     * Returns equivalent string of device, in uppercase.
-     *
-     * @param device The enum value that needs to be converted.
-     * @return The string equivalent for device in uppercase.
-     */
-    public String getStringForDevice(Device device) {
-        return device.name().toUpperCase();
-    }
-
-    /**
-     * Returns Device enum value equivalent to the deviceType.
-     * In case of a invalid input, Device.GHOST is returned.
-     *
-     * @param deviceType The string to be converted.
-     * @return Device enum value equivalent to the deviceType.
-     */
-    private Device getDeviceForString(String deviceType) {
-        if (TextUtils.isEmpty(deviceType)) {
-            return Device.GHOST;
-        }
-        if (deviceType.toUpperCase().contains(MessageEntity.CHROME)) {
-            return Device.CHROME;
-        }
-        if (deviceType.toUpperCase().contains(MessageEntity.PHONE)) {
-            return Device.PHONE;
-        }
-        return Device.GHOST;
-    }
 }

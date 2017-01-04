@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016 Nikhil Warke
+ * Copyright © 2017 Nikhil Warke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import dagger.Component;
 import io.github.nickdex.pasteit.AndroidApplication;
 import io.github.nickdex.pasteit.framework.core.di.AppScope;
 import io.github.nickdex.pasteit.framework.core.di.modules.ApplicationModule;
+import io.github.nickdex.pasteit.framework.core.di.modules.CacheModule;
 import io.github.nickdex.pasteit.framework.core.di.modules.EntityStoreModule;
 import io.github.nickdex.pasteit.framework.core.di.modules.RepositoryModule;
 import io.github.nickdex.pasteit.framework.core.di.modules.ViewModule;
@@ -30,6 +31,7 @@ import io.github.nickdex.pasteit.framework.core.di.modules.ViewModule;
 @AppScope
 @Component(modules = {ApplicationModule.class,
         RepositoryModule.class,
+        CacheModule.class,
         EntityStoreModule.class})
 public interface ApplicationComponent {
 

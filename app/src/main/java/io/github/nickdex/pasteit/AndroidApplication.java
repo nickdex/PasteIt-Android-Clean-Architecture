@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016 Nikhil Warke
+ * Copyright © 2017 Nikhil Warke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,8 @@ import io.github.nickdex.pasteit.framework.core.di.components.ApplicationCompone
 import io.github.nickdex.pasteit.framework.core.di.components.DaggerApplicationComponent;
 import io.github.nickdex.pasteit.framework.core.di.modules.ApplicationModule;
 import io.github.nickdex.pasteit.framework.data.manager.AuthManager;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import timber.log.Timber;
 
 /**
@@ -49,6 +51,7 @@ public class AndroidApplication extends Application {
         this.initializeInjector();
         this.initializeLeakDetection();
         this.initTimber();
+        this.initRealm();
         networkManager.start();
     }
 
@@ -56,6 +59,14 @@ public class AndroidApplication extends Application {
     public void onTerminate() {
         super.onTerminate();
         networkManager.stop();
+    }
+
+    private void initRealm() {
+        Realm.init(this);
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        Realm.setDefaultConfiguration(realmConfiguration);
     }
 
     private void initTimber() {

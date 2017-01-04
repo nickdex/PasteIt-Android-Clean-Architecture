@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016 Nikhil Warke
+ * Copyright © 2017 Nikhil Warke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,8 +36,8 @@ public abstract class BaseDaggerActivity<VIEW extends View,
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        initViewComponent();
         super.onCreate(savedInstanceState);
+        initViewComponent();
     }
 
     /**

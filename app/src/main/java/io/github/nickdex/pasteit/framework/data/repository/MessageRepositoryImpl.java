@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016 Nikhil Warke
+ * Copyright © 2017 Nikhil Warke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +22,11 @@ import javax.inject.Inject;
 
 import io.github.nickdex.pasteit.framework.core.data.manager.NetworkManager;
 import io.github.nickdex.pasteit.framework.core.repository.RepositoryImpl;
+import io.github.nickdex.pasteit.framework.data.entity.MessageEntity;
+import io.github.nickdex.pasteit.framework.data.mapper.MapperUtil;
 import io.github.nickdex.pasteit.framework.data.mapper.MessageEntityClipItemMapper;
 import io.github.nickdex.pasteit.framework.data.store.MessageEntityStore;
+import io.github.nickdex.pasteit.framework.data.store.cache.MessageCache;
 import io.github.nickdex.pasteit.framework.domain.Messenger;
 import io.github.nickdex.pasteit.framework.domain.model.ClipItem;
 import io.github.nickdex.pasteit.framework.domain.model.Device;
@@ -33,11 +36,11 @@ import rx.Observable;
 /**
  * A Class that performs operation on Clips.
  */
-public class MessageRepositoryImpl extends RepositoryImpl<MessageEntityStore, MessageEntityClipItemMapper> implements MessageRepository {
+public class MessageRepositoryImpl extends RepositoryImpl<MessageEntityStore, MessageCache, MessageEntityClipItemMapper> implements MessageRepository {
 
     @Inject
-    public MessageRepositoryImpl(NetworkManager networkManager, MessageEntityStore cloudStore, MessageEntityClipItemMapper entityDtoMapper) {
-        super(networkManager, cloudStore, entityDtoMapper);
+    public MessageRepositoryImpl(NetworkManager networkManager, MessageEntityStore cloudStore, MessageCache cache, MessageEntityClipItemMapper entityDtoMapper) {
+        super(networkManager, cloudStore, cache, entityDtoMapper);
     }
 
     /**
@@ -49,8 +52,14 @@ public class MessageRepositoryImpl extends RepositoryImpl<MessageEntityStore, Me
      */
     @Override
     public Observable<List<ClipItem>> getClips(Device device, Messenger messenger) {
-        return cloudStore.getMessages(entityDmMapper.getStringForDevice(device))
-                .map(messageEntities -> entityDmMapper.mapToSecond(messageEntities));
+        Observable<List<MessageEntity>> observable;
+        String deviceString = MapperUtil.getStringForDevice(device);
+        if (networkManager.isNetworkAvailable()) {
+            observable = cloudStore.getMessages(deviceString).doOnNext(messageEntities -> cache.saveMessages(messageEntities));
+        } else {
+            observable = cache.getMessages(deviceString).doOnNext(messageEntities -> messenger.showFromCacheMessage());
+        }
+        return observable.map(messageEntities -> entityDmMapper.mapToSecond(messageEntities));
     }
 
     /**
@@ -62,6 +71,10 @@ public class MessageRepositoryImpl extends RepositoryImpl<MessageEntityStore, Me
      */
     @Override
     public Observable<Void> pasteClip(ClipItem message, Messenger messenger) {
-        return cloudStore.postMessage(entityDmMapper.mapToFirst(message));
+        if (networkManager.isNetworkAvailable()) {
+            return cloudStore.postMessage(entityDmMapper.mapToFirst(message));
+        } else {
+            return Observable.<Void>empty().doOnCompleted(messenger::showNoNetworkMessage);
+        }
     }
 }

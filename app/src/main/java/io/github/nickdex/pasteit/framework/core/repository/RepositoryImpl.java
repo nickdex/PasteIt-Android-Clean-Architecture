@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016 Nikhil Warke
+ * Copyright © 2017 Nikhil Warke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import java.util.Map;
 import io.github.nickdex.pasteit.framework.core.data.manager.NetworkManager;
 import io.github.nickdex.pasteit.framework.core.data.mapper.BaseMapper;
 import io.github.nickdex.pasteit.framework.core.data.store.EntityStore;
+import io.github.nickdex.pasteit.framework.core.data.store.cache.Cache;
 import io.github.nickdex.pasteit.framework.domain.repository.Repository;
 import io.github.nickdex.pasteit.framework.usecase.UseCase;
 
@@ -32,19 +33,22 @@ import io.github.nickdex.pasteit.framework.usecase.UseCase;
  * @param <ENTITY_DM_MAPPER> Mapper that converts data between Entity and Domain models.
  */
 public abstract class RepositoryImpl
-        <ENTITY_STORE extends EntityStore,
+        <ENTITY_STORE extends EntityStore, CACHE extends Cache,
                 ENTITY_DM_MAPPER extends BaseMapper> implements Repository {
 
     protected final Map<String, UseCase> useCasesMap = new HashMap<>();
     protected NetworkManager networkManager;
     protected ENTITY_STORE cloudStore;
+    protected CACHE cache;
     protected ENTITY_DM_MAPPER entityDmMapper;
 
     public RepositoryImpl(NetworkManager networkManager,
                           ENTITY_STORE cloudStore,
+                          CACHE cache,
                           ENTITY_DM_MAPPER entityDtoMapper) {
         this.networkManager = networkManager;
         this.cloudStore = cloudStore;
+        this.cache = cache;
         this.entityDmMapper = entityDtoMapper;
     }
 

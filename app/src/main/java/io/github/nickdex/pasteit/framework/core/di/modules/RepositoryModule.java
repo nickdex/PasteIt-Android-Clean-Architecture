@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016 Nikhil Warke
+ * Copyright © 2017 Nikhil Warke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,8 @@ import io.github.nickdex.pasteit.framework.data.repository.MessageRepositoryImpl
 import io.github.nickdex.pasteit.framework.data.repository.UserRepositoryImpl;
 import io.github.nickdex.pasteit.framework.data.store.MessageEntityStore;
 import io.github.nickdex.pasteit.framework.data.store.UserEntityStore;
+import io.github.nickdex.pasteit.framework.data.store.cache.MessageCache;
+import io.github.nickdex.pasteit.framework.data.store.cache.UserCache;
 import io.github.nickdex.pasteit.framework.domain.repository.MessageRepository;
 import io.github.nickdex.pasteit.framework.domain.repository.UserRepository;
 
@@ -39,15 +41,17 @@ public class RepositoryModule {
     @AppScope
     UserRepository providesUserRepository(NetworkManager networkManager,
                                           UserEntityStore userEntityStore,
+                                          UserCache cache,
                                           UserEntityUserDmMapper mapper) {
-        return new UserRepositoryImpl(networkManager, userEntityStore, mapper);
+        return new UserRepositoryImpl(networkManager, userEntityStore, cache, mapper);
     }
 
     @Provides
     @AppScope
     MessageRepository providesMessageRepository(NetworkManager networkManager,
                                                 MessageEntityStore messageEntityStore,
+                                                MessageCache cache,
                                                 MessageEntityClipItemMapper mapper) {
-        return new MessageRepositoryImpl(networkManager, messageEntityStore, mapper);
+        return new MessageRepositoryImpl(networkManager, messageEntityStore, cache, mapper);
     }
 }
