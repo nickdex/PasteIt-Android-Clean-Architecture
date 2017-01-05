@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016 Nikhil Warke
+ * Copyright © 2017 Nikhil Warke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@ import io.github.nickdex.pasteit.framework.data.manager.AuthException;
 import io.github.nickdex.pasteit.framework.data.manager.AuthManager;
 import io.github.nickdex.pasteit.framework.domain.model.User;
 import io.github.nickdex.pasteit.framework.usecase.user.CreateUser;
+import io.realm.Realm;
 import rx.Subscriber;
 
 /**
@@ -85,7 +86,7 @@ public class AuthManagerImpl implements AuthManager {
                             googleApiClient.unregisterConnectionCallbacks(this);
                             if (!signOutSubscriber.isUnsubscribed()) {
                                 if (status.isSuccess()) {
-//                                        deleteCache();
+                                    deleteCache();
                                     signOutSubscriber.onNext(id);
                                 } else {
                                     signOutSubscriber.onError(new AuthException());
@@ -101,6 +102,10 @@ public class AuthManagerImpl implements AuthManager {
             }
         });
         googleApiClient.connect();
+    }
+
+    private void deleteCache() {
+        Realm.getDefaultInstance().executeTransaction(realm -> realm.deleteAll());
     }
 
     @Override
