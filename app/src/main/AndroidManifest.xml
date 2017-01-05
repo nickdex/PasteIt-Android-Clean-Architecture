@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright © 2016 Nikhil Warke
+  ~ Copyright © 2017 Nikhil Warke
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.github.nickdex.pasteit">
 
@@ -41,7 +40,14 @@
         <activity
             android:name=".messages.MessagesActivity"
             android:label="@string/label_messages" />
-
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:label="@string/label_settings"
+            android:parentActivityName=".messages.MessagesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.nickdex.pasteit.messages.MessagesActivity" />
+        </activity>
     </application>
 
 </manifest>

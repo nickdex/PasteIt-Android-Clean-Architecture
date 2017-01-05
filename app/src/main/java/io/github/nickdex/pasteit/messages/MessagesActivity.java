@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016 Nikhil Warke
+ * Copyright © 2017 Nikhil Warke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,6 +47,7 @@ import io.github.nickdex.pasteit.login.LoginActivity;
 import io.github.nickdex.pasteit.messages.model.MessageModel;
 import io.github.nickdex.pasteit.messages.view.MessagesView;
 import io.github.nickdex.pasteit.messages.view.MessagesViewImpl;
+import io.github.nickdex.pasteit.settings.SettingsActivity;
 
 /**
  * Activity that connects MessagesView, MessagesPresenter and Layout.
@@ -103,6 +104,10 @@ public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesP
         switch (item.getItemId()) {
             case R.id.sign_out_menu:
                 presenter.signOut();
+                break;
+            case R.id.settings:
+                SettingsActivity.launch(this);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

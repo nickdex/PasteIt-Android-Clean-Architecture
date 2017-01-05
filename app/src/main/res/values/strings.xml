@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright © 2016 Nikhil Warke
+  ~ Copyright © 2017 Nikhil Warke
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
     <string name="app_name">PasteIt</string>
     <string name="label_login">Login</string>
     <string name="label_messages">Messages</string>
+    <string name="label_settings">Settings</string>
 
     <string name="editText_input_hint">Paste here…</string>
 
@@ -62,5 +63,17 @@
     <string name="message_sent">Message sent</string>
     <string name="device_image_content_description">Device Image</string>
     <string name="copy_message">Copied</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example settings for Notifications -->
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="settings">Settings</string>
 
 </resources>
