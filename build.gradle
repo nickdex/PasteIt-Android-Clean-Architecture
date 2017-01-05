@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016 Nikhil Warke
+ * Copyright © 2017 Nikhil Warke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,7 +63,6 @@ ext {
     daggerVersion = '2.7'
     gsonVersion = '2.8.0'
     rippleVersion = '1.0.2'
-    realmVersion = ''
 
     leakCanaryVersion = '1.5'
 
