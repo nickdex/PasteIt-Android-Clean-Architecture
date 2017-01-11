@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016 Nikhil Warke
+ * Copyright © 2017 Nikhil Warke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -98,7 +98,9 @@ class MessagesPresenter extends BasePresenter<MessagesView> {
 
             @Override
             public void onNext(List<ClipItem> clipItems) {
-                view.renderMessages(mapper.mapToFirst(clipItems));
+                List<MessageModel> modelList = mapper.mapToFirst(clipItems);
+                view.renderMessages(modelList);
+                view.showNotification(modelList.get(modelList.size() - 1));
                 view.copyLatestClip(clipItems.get(clipItems.size() - 1).getText());
                 view.hideProgress();
             }
@@ -107,6 +109,10 @@ class MessagesPresenter extends BasePresenter<MessagesView> {
 
     private void setTitle() {
         view.setTitle(getDevice().name());
+    }
+
+    private void copyFromNotification(String text) {
+        view.copyLatestClip(text);
     }
 
     @Override

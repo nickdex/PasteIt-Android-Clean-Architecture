@@ -16,8 +16,13 @@
 
 package io.github.nickdex.pasteit.messages;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -41,6 +46,7 @@ import io.github.nickdex.pasteit.R;
 import io.github.nickdex.pasteit.copy.ClipBoardManager;
 import io.github.nickdex.pasteit.databinding.ActivityMessageBinding;
 import io.github.nickdex.pasteit.framework.core.di.components.ViewComponent;
+import io.github.nickdex.pasteit.framework.data.mapper.MapperUtil;
 import io.github.nickdex.pasteit.framework.domain.model.Device;
 import io.github.nickdex.pasteit.framework.presentation.BaseDaggerActivity;
 import io.github.nickdex.pasteit.login.LoginActivity;
@@ -57,13 +63,19 @@ import io.github.nickdex.pasteit.settings.SettingsActivity;
 public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesPresenter, ActivityMessageBinding> {
 
     public static final String KEY_DEVICE_TYPE = "device_type";
-
+    public final static String COPY_ACTION = "paste.action.copy";
     @Inject
     ClipBoardManager clipboard;
-
     @Inject
     Lazy<MessagesPresenter> messagesPresenter;
+    private BroadcastReceiver notificationListener = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(COPY_ACTION)) {
 
+            }
+        }
+    };
     private MessageAdapter messageAdapter;
 
     /**
@@ -75,6 +87,18 @@ public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesP
         Intent intent = getBaseStartIntent(context, MessagesActivity.class, false);
         intent.putExtra(KEY_DEVICE_TYPE, Device.CHROME);
         context.startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        registerReceiver(notificationListener, new IntentFilter(COPY_ACTION));
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        unregisterReceiver(notificationListener);
+        super.onPause();
     }
 
     @Override
@@ -137,6 +161,26 @@ public class MessagesActivity extends BaseDaggerActivity<MessagesView, MessagesP
             @Override
             public void showMessage(String message) {
                 Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void showNotification(MessageModel model) {
+                NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+                Intent intent = new Intent();
+                intent.setAction(COPY_ACTION);
+
+                PendingIntent copyIntent = PendingIntent.getActivity(MessagesActivity.this, 101, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                Notification notification = new Notification.Builder(MessagesActivity.this)
+                        .setSmallIcon(R.drawable.ic_paste_black)
+                        .setContentTitle(MapperUtil.getStringForDevice(model.getDeviceType()))
+                        .setContentText(model.getText())
+                        .addAction(R.mipmap.ic_launcher, "Copy", copyIntent)
+                        .setAutoCancel(true)
+                        .build();
+
+                notificationManager.notify(123, notification);
             }
 
             @Override

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016 Nikhil Warke
+ * Copyright © 2017 Nikhil Warke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,6 +52,11 @@ public interface MessagesView extends View {
      * Clears the input text field.
      */
     void clearInput();
+
+    /**
+     * Shows a notifications
+     */
+    void showNotification(MessageModel model);
 
     /**
      * Clears the notification(s).
