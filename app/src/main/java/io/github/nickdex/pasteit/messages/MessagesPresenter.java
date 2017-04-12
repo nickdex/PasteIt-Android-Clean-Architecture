@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016 Nikhil Warke
+ * Copyright © 2017 Nikhil Warke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
  */
 
 package io.github.nickdex.pasteit.messages;
+
+import android.util.Log;
 
 import java.util.List;
 
@@ -42,6 +44,8 @@ import rx.Subscriber;
 @ViewScope
 class MessagesPresenter extends BasePresenter<MessagesView> {
 
+    private static final String TAG = MessagesPresenter.class.getName();
+
     private GetMessages getMessages;
     private PasteClip pasteClip;
 
@@ -54,11 +58,11 @@ class MessagesPresenter extends BasePresenter<MessagesView> {
     private AuthManager authManager;
 
     @Inject
-    public MessagesPresenter(NetworkManager networkManager,
-                             GetMessages getMessages,
-                             PasteClip pasteClip,
-                             MessageModelClipItemMapper mapper,
-                             AuthManager authManager) {
+    MessagesPresenter(NetworkManager networkManager,
+                      GetMessages getMessages,
+                      PasteClip pasteClip,
+                      MessageModelClipItemMapper mapper,
+                      AuthManager authManager) {
         super(networkManager);
         this.getMessages = getMessages;
         this.pasteClip = pasteClip;
@@ -92,7 +96,11 @@ class MessagesPresenter extends BasePresenter<MessagesView> {
 
             @Override
             public void onError(Throwable e) {
-                view.showMessage(e.getMessage());
+                if (e instanceof ArrayIndexOutOfBoundsException) {
+                    if (e.getMessage().contains("Length:0")) {
+                        Log.e(TAG, "No messages to be loaded");
+                    }
+                }
                 view.hideProgress();
             }
 
