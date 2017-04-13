@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016 Nikhil Warke
+ * Copyright © 2017 Nikhil Warke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,7 +68,7 @@ public class MockFirebaseMessageEntityStore implements MessageEntityStore {
     }
 
     @Override
-    public Observable<List<MessageEntity>> getMessages(String userId) {
+    public Observable<List<MessageEntity>> getMessages() {
 
 
         JsonReader jsonReader = new JsonReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("res/raw/dummy.json")));
