@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016 Nikhil Warke
+ * Copyright © 2017 Nikhil Warke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,11 +45,10 @@ public class FirebaseMessageEntityStore extends FirebaseEntityStore implements M
     /**
      * Returns an observable which will emit a list of all messages present inside the given user's node in firebase.
      *
-     * @param userId Id of the user for whom messages need to be fetched.
-     * @return The observable which will emit a list of all messages for the userId.
+     * @return The observable which will emit a list of all messages.
      */
     @Override
-    public Observable<List<MessageEntity>> getMessages(String userId) {
+    public Observable<List<MessageEntity>> getMessages() {
         // TODO: 12/12/16 Use the argument to get required messages.
         Query query = database
                 .child(ROOT_MESSAGES)

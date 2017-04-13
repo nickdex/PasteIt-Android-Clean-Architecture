@@ -23,7 +23,6 @@ import javax.inject.Inject;
 import io.github.nickdex.pasteit.framework.core.data.manager.NetworkManager;
 import io.github.nickdex.pasteit.framework.core.repository.RepositoryImpl;
 import io.github.nickdex.pasteit.framework.data.entity.MessageEntity;
-import io.github.nickdex.pasteit.framework.data.mapper.MapperUtil;
 import io.github.nickdex.pasteit.framework.data.mapper.MessageEntityClipItemMapper;
 import io.github.nickdex.pasteit.framework.data.store.MessageEntityStore;
 import io.github.nickdex.pasteit.framework.data.store.cache.MessageCache;
@@ -53,11 +52,10 @@ public class MessageRepositoryImpl extends RepositoryImpl<MessageEntityStore, Me
     @Override
     public Observable<List<ClipItem>> getClips(Device device, Messenger messenger) {
         Observable<List<MessageEntity>> observable;
-        String deviceString = MapperUtil.getStringForDevice(device);
         if (networkManager.isNetworkAvailable()) {
-            observable = cloudStore.getMessages(deviceString).doOnNext(messageEntities -> cache.saveMessages(messageEntities));
+            observable = cloudStore.getMessages().doOnNext(messageEntities -> cache.saveMessages(messageEntities));
         } else {
-            observable = cache.getMessages(deviceString).doOnNext(messageEntities -> messenger.showFromCacheMessage());
+            observable = cache.getMessages().doOnNext(messageEntities -> messenger.showFromCacheMessage());
         }
         return observable.map(messageEntities -> entityDmMapper.mapToSecond(messageEntities));
     }

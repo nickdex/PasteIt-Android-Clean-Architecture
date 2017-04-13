@@ -55,11 +55,10 @@ public class RealmMessageCache implements MessageCache {
     /**
      * Returns list of all messages found in Realm.
      *
-     * @param userId Id of the user for whom messages need to be fetched.
      * @return List of all messages found in Realm.
      */
     @Override
-    public Observable<List<MessageEntity>> getMessages(String userId) {
+    public Observable<List<MessageEntity>> getMessages() {
         List<MessageEntity> messageEntities = mapper.mapToSecond(
                 realm.where(RealmMessageEntity.class).findAll()
         );

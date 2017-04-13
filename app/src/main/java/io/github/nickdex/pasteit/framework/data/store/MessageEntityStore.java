@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016 Nikhil Warke
+ * Copyright © 2017 Nikhil Warke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,12 +28,11 @@ import rx.Observable;
 public interface MessageEntityStore extends EntityStore {
 
     /**
-     * Returns an observable which will emit a list of all messages for the userId.
+     * Returns an observable which will emit a list of all messages.
      *
-     * @param userId Id of the user for whom messages need to be fetched.
-     * @return The observable which will emit a list of all messages for the userId.
+     * @return The observable which will emit a list of all messages.
      */
-    Observable<List<MessageEntity>> getMessages(String userId);
+    Observable<List<MessageEntity>> getMessages();
 
     /**
      * Posts a message to the data store.
