@@ -24,6 +24,7 @@ import io.github.nickdex.pasteit.framework.core.di.modules.CacheModule;
 import io.github.nickdex.pasteit.framework.core.di.modules.EntityStoreModule;
 import io.github.nickdex.pasteit.framework.core.di.modules.RepositoryModule;
 import io.github.nickdex.pasteit.framework.core.di.modules.ViewModule;
+import io.github.nickdex.pasteit.messages.CopyClipIntentService;
 
 /**
  * A component whose lifetime is the life of the application.
@@ -38,4 +39,6 @@ public interface ApplicationComponent {
     ViewComponent plus(ViewModule viewModule);
 
     void inject(AndroidApplication app);
+
+    void inject(CopyClipIntentService service);
 }

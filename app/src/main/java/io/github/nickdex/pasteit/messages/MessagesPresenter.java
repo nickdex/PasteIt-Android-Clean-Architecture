@@ -51,7 +51,7 @@ class MessagesPresenter extends BasePresenter<MessagesView> {
 
     private MessageModelClipItemMapper mapper;
 
-    private Device device;
+    private Device targetDevice = Device.CHROME;
 
     private Subscriber<String> signOutSubscriber;
 
@@ -92,7 +92,7 @@ class MessagesPresenter extends BasePresenter<MessagesView> {
 
     private void getMessages() {
         view.showProgress();
-        getMessages.execute(getDevice(), new DefaultSubscriber<List<ClipItem>>(view) {
+        getMessages.execute(getTargetDevice(), new DefaultSubscriber<List<ClipItem>>(view) {
 
             @Override
             public void onError(Throwable e) {
@@ -115,8 +115,12 @@ class MessagesPresenter extends BasePresenter<MessagesView> {
         });
     }
 
+    /**
+     * Sets the title of activity<BR >
+     * It is hardcoded DEVICE.CHROME
+     */
     private void setTitle() {
-        view.setTitle(getDevice().name());
+        view.setTitle(getTargetDevice().name());
     }
 
     private void copyFromNotification(String text) {
@@ -147,12 +151,12 @@ class MessagesPresenter extends BasePresenter<MessagesView> {
         refreshData();
     }
 
-    public Device getDevice() {
-        return device;
+    private Device getTargetDevice() {
+        return targetDevice;
     }
 
-    public void setDevice(Device device) {
-        this.device = device;
+    void setTargetDevice(Device device) {
+        this.targetDevice = device;
     }
 
     void signOut() {
