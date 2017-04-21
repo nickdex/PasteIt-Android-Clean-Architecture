@@ -53,7 +53,7 @@ public class MessageRepositoryImpl extends RepositoryImpl<MessageEntityStore, Me
     public Observable<List<ClipItem>> getClips(Device device, Messenger messenger) {
         Observable<List<MessageEntity>> observable;
         if (networkManager.isNetworkAvailable()) {
-            observable = cloudStore.getMessages().doOnNext(messageEntities -> cache.saveMessages(messageEntities));
+            observable = cache.getMessages().concatWith(cloudStore.getMessages().doOnNext(e -> cache.saveMessages(e)));
         } else {
             observable = cache.getMessages().doOnNext(messageEntities -> messenger.showFromCacheMessage());
         }
