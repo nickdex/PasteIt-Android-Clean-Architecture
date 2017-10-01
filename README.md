@@ -1,6 +1,6 @@
 PasteIt for Android
 ======
-[](https://flattr.com/submit/auto?\user_id=nickdex&url=https://github.com/nickdex/PasteIt-Android&title=PasteIt&\description=Enjoy)
+[![Flattr](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?\user_id=nickdex&url=https://github.com/nickdex/PasteIt-Android&title=PasteIt&\description=Enjoy)
 
 synced clipboard between desktop and mobile. Simply copy something on your device and have it available to paste on another device.)
 
