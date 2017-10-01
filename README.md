@@ -1,6 +1,8 @@
 PasteIt for Android
 ======
-[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?\user_id=nickdex&url=https://github.com/nickdex/PasteIt-Android&title=PasteIt&\description=Enjoy synced clipboard between desktop and mobile. Simply copy something on your device and have it available to paste on another device.)
+[](https://flattr.com/submit/auto?\user_id=nickdex&url=https://github.com/nickdex/PasteIt-Android&title=PasteIt&\description=Enjoy)
+
+synced clipboard between desktop and mobile. Simply copy something on your device and have it available to paste on another device.)
 
 **PasteIt** is an app that helps to easily copy and paste between your devices.
 
